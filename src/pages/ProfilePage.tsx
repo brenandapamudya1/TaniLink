@@ -1,0 +1,74 @@
+import { User, ClipboardList, Heart, MapPin, Bell, Settings, HelpCircle, ChevronRight } from 'lucide-react'
+import { PageWrapper } from '@/components/layout/PageWrapper'
+
+interface MenuItem {
+  icon: typeof ClipboardList
+  label: string
+  action: () => void
+}
+
+export default function ProfilePage() {
+  const handleDummy = () => {
+    alert('Segera hadir!')
+  }
+
+  const handleLogin = () => {
+    alert('Fitur login akan segera hadir!')
+  }
+
+  const menuItems: MenuItem[] = [
+    { icon: ClipboardList, label: 'Pesanan Saya', action: handleDummy },
+    { icon: Heart, label: 'Wishlist', action: handleDummy },
+    { icon: MapPin, label: 'Alamat Pengiriman', action: handleDummy },
+    { icon: Bell, label: 'Notifikasi', action: handleDummy },
+    { icon: Settings, label: 'Pengaturan', action: handleDummy },
+    { icon: HelpCircle, label: 'Bantuan', action: handleDummy },
+  ]
+
+  return (
+    <PageWrapper>
+      <div className="bg-soil px-4 py-8">
+        <div className="flex flex-col items-center text-center">
+          <div className="w-20 h-20 rounded-full bg-cream flex items-center justify-center mb-4">
+            <User size={32} className="text-earth" />
+          </div>
+          <h1 className="font-display text-section text-cream mb-1">Tamu</h1>
+          <p className="text-caption text-cream/70 mb-4">
+            Masuk untuk pengalaman lengkap
+          </p>
+          <button
+            onClick={handleLogin}
+            className="px-6 py-2.5 rounded-pill border border-cream text-cream font-semibold text-sm hover:bg-cream/10 transition-colors"
+          >
+            Masuk / Daftar
+          </button>
+        </div>
+      </div>
+
+      <div className="px-4 py-4">
+        <div className="bg-fog rounded-lg shadow-card overflow-hidden">
+          {menuItems.map((item, index) => {
+            const Icon = item.icon
+            return (
+              <button
+                key={item.label}
+                onClick={item.action}
+                className={`w-full flex items-center gap-3 px-4 py-4 hover:bg-cream/50 transition-colors ${
+                  index < menuItems.length - 1 ? 'border-b border-cream' : ''
+                }`}
+              >
+                <Icon size={20} className="text-harvest flex-shrink-0" />
+                <span className="text-soil text-base flex-1 text-left">{item.label}</span>
+                <ChevronRight size={18} className="text-earth/40" />
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      <div className="px-4 py-8 text-center">
+        <p className="text-caption text-earth">TaniLink v0.1.0 — Phase 0</p>
+      </div>
+    </PageWrapper>
+  )
+}
