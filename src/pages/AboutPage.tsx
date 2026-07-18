@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, Scale, Leaf, Eye, ShoppingBag, PackageCheck, Truck } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
-import { Button } from '@/components/ui/Button'
+import { HeroSection } from '@/components/sections/HeroSection'
+import { TestimonialSlider } from '@/components/sections/TestimonialSlider'
+import { CtaSection } from '@/components/sections/CtaSection'
 
 interface ValueCard {
   icon: typeof Scale
@@ -65,6 +67,8 @@ export default function AboutPage() {
           <ArrowLeft size={20} className="text-soil" />
         </button>
       </div>
+
+      <HeroSection />
 
       <div className="px-4 py-6">
         <h1 className="font-display text-title text-soil mb-4">
@@ -135,20 +139,8 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="border-t border-cream px-4 py-6">
-        <div className="bg-soil rounded-lg p-6 text-center">
-          <h3 className="font-display text-section text-cream mb-2">
-            Bergabung dengan Kami
-          </h3>
-          <p className="text-caption text-cream/70 mb-4">
-            Jadi bagian dari gerakan untuk pertanian yang lebih adil
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button label="Mulai Belanja" variant="primary" onClick={() => navigate('/produk')} />
-            <Button label="Daftar sebagai Petani" variant="ghost" onClick={() => alert('Fitur pendaftaran petani akan segera hadir!')} />
-          </div>
-        </div>
-      </div>
+      <TestimonialSlider />
+      <CtaSection />
     </PageWrapper>
   )
 }

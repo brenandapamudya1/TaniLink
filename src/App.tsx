@@ -1,7 +1,9 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import { Navbar } from '@/components/layout/Navbar'
 import { BottomTabBar } from '@/components/layout/BottomTabBar'
-import LandingPage from '@/pages/LandingPage'
+import { SplashScreen } from '@/components/ui/SplashScreen'
+import DashboardPage from '@/pages/DashboardPage'
 import ProductListPage from '@/pages/ProductListPage'
 import ProductDetailPage from '@/pages/ProductDetailPage'
 import FarmerListPage from '@/pages/FarmerListPage'
@@ -12,14 +14,17 @@ import OrdersPage from '@/pages/OrdersPage'
 import AboutPage from '@/pages/AboutPage'
 
 function App() {
-  const location = useLocation()
-  const isLanding = location.pathname === '/'
+  const [showSplash, setShowSplash] = useState(true)
+
+  if (showSplash) {
+    return <SplashScreen onFinish={() => setShowSplash(false)} />
+  }
 
   return (
     <div className="min-h-screen bg-fog">
       <Navbar />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<DashboardPage />} />
         <Route path="/produk" element={<ProductListPage />} />
         <Route path="/produk/:id" element={<ProductDetailPage />} />
         <Route path="/petani" element={<FarmerListPage />} />
@@ -29,7 +34,7 @@ function App() {
         <Route path="/pesanan" element={<OrdersPage />} />
         <Route path="/tentang" element={<AboutPage />} />
       </Routes>
-      {!isLanding && <BottomTabBar />}
+      <BottomTabBar />
     </div>
   )
 }

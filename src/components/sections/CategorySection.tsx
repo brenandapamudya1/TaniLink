@@ -16,7 +16,7 @@ export function CategorySection() {
   const navigate = useNavigate()
 
   return (
-    <section className="bg-fog py-6 md:max-w-[480px] md:mx-auto">
+    <section className="bg-fog py-3 md:max-w-[480px] md:mx-auto">
       <div className="px-4 mb-4">
         <h2 className="font-display text-section text-soil">Kategori</h2>
       </div>

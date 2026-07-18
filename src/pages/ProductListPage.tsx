@@ -74,15 +74,14 @@ export default function ProductListPage() {
         </div>
       </div>
 
-      <div className="sticky top-[102px] z-20 bg-fog px-4 py-3 border-b border-cream">
-        <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 snap-x">
+      <div className="sticky top-[102px] z-20 bg-fog px-4 pt-4 pb-2 border-b border-cream">
+        <div className="flex gap-2 overflow-x-auto -mx-4 px-4 snap-x">
           <button
             onClick={() => setSelectedCategory('all')}
-            className={`px-4 py-2 rounded-pill text-sm font-semibold whitespace-nowrap transition-colors ${
-              selectedCategory === 'all'
-                ? 'bg-leaf text-cream'
-                : 'bg-transparent border border-earth text-earth'
-            }`}
+            className={`px-4 py-2 rounded-pill text-sm font-semibold whitespace-nowrap transition-colors ${selectedCategory === 'all'
+              ? 'bg-leaf text-cream'
+              : 'bg-transparent border border-earth text-earth'
+              }`}
           >
             Semua
           </button>
@@ -90,11 +89,10 @@ export default function ProductListPage() {
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
-              className={`px-4 py-2 rounded-pill text-sm font-semibold whitespace-nowrap transition-colors ${
-                selectedCategory === category.id
-                  ? 'bg-leaf text-cream'
-                  : 'bg-transparent border border-earth text-earth'
-              }`}
+              className={`px-4 py-2 rounded-pill text-sm font-semibold whitespace-nowrap transition-colors ${selectedCategory === category.id
+                ? 'bg-leaf text-cream'
+                : 'bg-transparent border border-earth text-earth'
+                }`}
             >
               {category.label}
             </button>
