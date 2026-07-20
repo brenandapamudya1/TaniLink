@@ -26,7 +26,7 @@ export function HeroSection() {
           <Link to="/produk">
             <Button label="Belanja Sekarang" variant="primary" />
           </Link>
-          <Link to="/tentang">
+          <Link to="/login">
             <Button label="Daftar sebagai Petani" variant="ghost" />
           </Link>
         </div>

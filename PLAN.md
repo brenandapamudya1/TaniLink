@@ -114,13 +114,93 @@
 
 ---
 
-## Phase I: Verifikasi
+## Phase I: Verifikasi ✅
 
 | Step | Command | Expected |
 |------|---------|----------|
 | I1 | `npx tsc --noEmit` | 0 error |
 | I2 | `npm run build` | Build sukses tanpa warning kritis |
 | I3 | `npm run dev` | Visual check di browser |
+
+---
+
+## Phase J: Profile Menu Pages + Wishlist Integration ✅
+
+> **Tujuan:** Mengisi semua menu di ProfilePage dengan halaman statis yang bermakna, dan mengintegrasikan tombol Heart di ProductCard/ProductDetailPage ke WishlistContext agar wishlist bisa diisi dari mana saja.
+
+### J1: Type & Context — Wishlist (2 file baru) ✅
+
+| File | Deskripsi |
+|------|-----------|
+| `src/types/wishlist.ts` | Interface `WishlistContextType` — `wishlistIds: Set<string>`, `toggleWishlist(productId: string): void`, `isWishlisted(productId: string): boolean`, `wishlistCount: number` |
+| `src/context/WishlistContext.tsx` | `WishlistProvider` + `useWishlist` hook. State: `Set<string>` berisi product ID. Methods: `toggleWishlist`, `isWishlisted`, `wishlistCount`. Tidak persist localStorage (sama seperti CartContext) |
+
+### J2: Integrasikan Wishlist ke Komponen Existing (2 file diubah) ✅
+
+| File | Perubahan |
+|------|-----------|
+| `src/components/ui/ProductCard.tsx` | Import `useWishlist`. Tombol Heart: panggil `toggleWishlist(product.id)`, icon `fill-harvest text-harvest` jika wishlisted, `text-earth` jika tidak. `e.stopPropagation()` tetap ada |
+| `src/pages/ProductDetailPage.tsx` | Import `useWishlist`. Tombol Heart di sticky header: panggil `toggleWishlist(product.id)`, visual state sama seperti ProductCard |
+
+### J3: Halaman Baru — WishlistPage (1 file baru) ✅
+
+| File | Route | Deskripsi |
+|------|-------|-----------|
+| `src/pages/WishlistPage.tsx` | `/wishlist` | Header "Wishlist Saya" + count. Ambil product IDs dari `useWishlist()`, filter dari `products` data. Grid 2 kolom pakai `ProductCard`. Empty state: icon Heart + "Belum ada produk di wishlist" + tombol "Mulai Belanja" ke /produk |
+
+### J4: Halaman Baru — AlamatPage (1 file baru) ✅
+
+| File | Route | Deskripsi |
+|------|-------|-----------|
+| `src/pages/AlamatPage.tsx` | `/alamat` | Header "Alamat Pengiriman". 1 alamat mock statis (read-only): nama penerima, no HP, label "Utama", alamat lengkap, kota. Tombol "Tambah Alamat Baru" → alert "Segera hadir". Card dengan border kiri harvest untuk alamat utama |
+
+### J5: Halaman Baru — NotifikasiPage (1 file baru) ✅
+
+| File | Route | Deskripsi |
+|------|-------|-----------|
+| `src/pages/NotifikasiPage.tsx` | `/notifikasi` | Header "Notifikasi". Empty state: icon Bell + "Belum ada notifikasi" + subtext "Notifikasi pesanan dan promo akan muncul di sini" |
+
+### J6: Halaman Baru — PengaturanPage (1 file baru) ✅
+
+| File | Route | Deskripsi |
+|------|-------|-----------|
+| `src/pages/PengaturanPage.tsx` | `/pengaturan` | Header "Pengaturan". 3 toggle mock (non-fungsional, pakai useState lokal): Bahasa (ID/EN), Mode Gelap (on/off), Notifikasi Push (on/off). Section "Akun": "Kelola Akun" → alert, "Hapus Akun" → alert. Section "Tentang": versi app "TaniLink v0.1.0" |
+
+### J7: Halaman Baru — BantuanPage (1 file baru) ✅
+
+| File | Route | Deskripsi |
+|------|-------|-----------|
+| `src/pages/BantuanPage.tsx` | `/bantuan` | Header "Pusat Bantuan". 6 FAQ statis pakai `<details>` atau accordion custom: (1) Apa itu TaniLink? (2) Bagaimana cara memesan? (3) Metode pembayaran apa saja? (4) Berapa lama pengiriman? (5) Bagaimana jika produk tidak segar? (6) Cara hubungi customer service? |
+
+### J8: Update ProfilePage (1 file diubah) ✅
+
+| File | Perubahan |
+|------|-----------|
+| `src/pages/ProfilePage.tsx` | Ganti semua `action: handleDummy` jadi navigasi: Pesanan Saya → `/pesanan`, Wishlist → `/wishlist`, Alamat → `/alamat`, Notifikasi → `/notifikasi`, Pengaturan → `/pengaturan`, Bantuan → `/bantuan`. Import `useNavigate` dari react-router-dom |
+
+### J9: Update Routing & Provider (2 file diubah) ✅
+
+| File | Perubahan |
+|------|-----------|
+| `src/App.tsx` | Tambah 5 route baru: `/wishlist`, `/alamat`, `/notifikasi`, `/pengaturan`, `/bantuan`. Import halaman baru |
+| `src/main.tsx` | Wrap App dengan `<WishlistProvider>` (di dalam `<CartProvider>`) |
+
+### J10: Verifikasi ✅
+
+| Step | Command | Expected |
+|------|---------|----------|
+| J10a | `npx tsc -b` | 0 error |
+| J10b | `npm run build` | Build sukses |
+| J10c | Manual test: klik Heart di ProductCard → navigasi ke /wishlist → produk muncul | Heart terisi, produk ada di wishlist |
+| J10d | Manual test: semua menu ProfilePage bisa diklik dan navigasi ke halaman yang benar | Tidak ada alert "Segera hadir" |
+
+### Ringkasan File Phase J ✅
+
+| Kategori | File |
+|----------|------|
+| **Baru (7)** | `src/types/wishlist.ts`, `src/context/WishlistContext.tsx`, `src/pages/WishlistPage.tsx`, `src/pages/AlamatPage.tsx`, `src/pages/NotifikasiPage.tsx`, `src/pages/PengaturanPage.tsx`, `src/pages/BantuanPage.tsx` |
+| **Diubah (5)** | `src/components/ui/ProductCard.tsx`, `src/pages/ProductDetailPage.tsx`, `src/pages/ProfilePage.tsx`, `src/App.tsx`, `src/main.tsx` |
+| **Total** | 12 file |
 
 ---
 
@@ -143,16 +223,17 @@
 ## Urutan Eksekusi
 
 ```
-A1-A4  → Init project + install deps
-A5-A10 → Konfigurasi semua file setup
-B1-B4  → Types dulu (wajib sebelum data & komponen)
-C1-C3  → Mock data
-D1-D2  → Context + Utils
-E1-E5  → UI components
-F1-F4  → Layout components
-G1-G7  → Homepage sections
-H1-H9  → Pages + App.tsx routing
-I1-I3  → Verifikasi build
+A1-A4  → Init project + install deps ✅
+A5-A10 → Konfigurasi semua file setup ✅
+B1-B4  → Types dulu (wajib sebelum data & komponen) ✅
+C1-C3  → Mock data ✅
+D1-D2  → Context + Utils ✅
+E1-E5  → UI components ✅
+F1-F4  → Layout components ✅
+G1-G7  → Homepage sections ✅
+H1-H9  → Pages + App.tsx routing ✅
+I1-I3  → Verifikasi build ✅
+J1-J10 → Profile menu pages + Wishlist integration ✅
 ```
 
 ---

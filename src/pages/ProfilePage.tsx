@@ -1,28 +1,27 @@
+import { useNavigate } from 'react-router-dom'
 import { User, ClipboardList, Heart, MapPin, Bell, Settings, HelpCircle, ChevronRight } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 
 interface MenuItem {
   icon: typeof ClipboardList
   label: string
-  action: () => void
+  route: string
 }
 
 export default function ProfilePage() {
-  const handleDummy = () => {
-    alert('Segera hadir!')
-  }
+  const navigate = useNavigate()
 
   const handleLogin = () => {
-    alert('Fitur login akan segera hadir!')
+    navigate('/login')
   }
 
   const menuItems: MenuItem[] = [
-    { icon: ClipboardList, label: 'Pesanan Saya', action: handleDummy },
-    { icon: Heart, label: 'Wishlist', action: handleDummy },
-    { icon: MapPin, label: 'Alamat Pengiriman', action: handleDummy },
-    { icon: Bell, label: 'Notifikasi', action: handleDummy },
-    { icon: Settings, label: 'Pengaturan', action: handleDummy },
-    { icon: HelpCircle, label: 'Bantuan', action: handleDummy },
+    { icon: ClipboardList, label: 'Pesanan Saya', route: '/pesanan' },
+    { icon: Heart, label: 'Wishlist', route: '/wishlist' },
+    { icon: MapPin, label: 'Alamat Pengiriman', route: '/alamat' },
+    { icon: Bell, label: 'Notifikasi', route: '/notifikasi' },
+    { icon: Settings, label: 'Pengaturan', route: '/pengaturan' },
+    { icon: HelpCircle, label: 'Bantuan', route: '/bantuan' },
   ]
 
   return (
@@ -52,7 +51,7 @@ export default function ProfilePage() {
             return (
               <button
                 key={item.label}
-                onClick={item.action}
+                onClick={() => navigate(item.route)}
                 className={`w-full flex items-center gap-3 px-4 py-4 hover:bg-cream/50 transition-colors ${
                   index < menuItems.length - 1 ? 'border-b border-cream' : ''
                 }`}

@@ -4,6 +4,7 @@ import { ArrowLeft, Heart, Star, MapPin, CheckCircle2, Minus, Plus } from 'lucid
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { ProductCard } from '@/components/ui/ProductCard'
 import { useCart } from '@/context/CartContext'
+import { useWishlist } from '@/context/WishlistContext'
 import { formatPrice } from '@/utils/formatPrice'
 import { products } from '@/data/products'
 import { farmers } from '@/data/farmers'
@@ -13,6 +14,7 @@ export default function ProductDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { addItem } = useCart()
+  const { toggleWishlist, isWishlisted } = useWishlist()
   const [quantity, setQuantity] = useState(1)
 
   const product = useMemo(() => products.find((p) => p.id === id), [id])
@@ -65,10 +67,11 @@ export default function ProductDetailPage() {
           <ArrowLeft size={20} className="text-soil" />
         </button>
         <button
+          onClick={() => toggleWishlist(product.id)}
           className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-cream transition-colors"
-          aria-label="Tambah ke wishlist"
+          aria-label={isWishlisted(product.id) ? 'Hapus dari wishlist' : 'Tambah ke wishlist'}
         >
-          <Heart size={20} className="text-earth" />
+          <Heart size={20} className={isWishlisted(product.id) ? 'fill-harvest text-harvest' : 'text-earth'} />
         </button>
       </div>
 

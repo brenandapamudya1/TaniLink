@@ -32,9 +32,9 @@ export function Navbar() {
       </Link>
 
       <div className="flex items-center gap-3">
-        <button className="text-sm font-semibold text-soil hover:text-harvest transition-colors">
+        <Link to="/login" className="text-sm font-semibold text-soil hover:text-harvest transition-colors">
           Masuk
-        </button>
+        </Link>
 
         <Link to="/keranjang" className="relative" aria-label="Keranjang belanja">
           <ShoppingCart size={22} className="text-soil" />

@@ -1,6 +1,7 @@
 import { Star, Heart } from 'lucide-react'
 import type { Product } from '@/types/product'
 import { formatPrice } from '@/utils/formatPrice'
+import { useWishlist } from '@/context/WishlistContext'
 
 interface ProductCardProps {
   product: Product
@@ -10,6 +11,8 @@ interface ProductCardProps {
 
 export function ProductCard({ product, onAddToCart, onClick }: ProductCardProps) {
   const { name, images, price, unit, rating, reviewCount, tags } = product
+  const { toggleWishlist, isWishlisted } = useWishlist()
+  const wishlisted = isWishlisted(product.id)
 
   return (
     <article
@@ -27,11 +30,11 @@ export function ProductCard({ product, onAddToCart, onClick }: ProductCardProps)
       )}
 
       <button
-        onClick={(e) => { e.stopPropagation() }}
+        onClick={(e) => { e.stopPropagation(); toggleWishlist(product.id) }}
         className="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-fog/80 flex items-center justify-center"
-        aria-label="Tambah ke wishlist"
+        aria-label={wishlisted ? 'Hapus dari wishlist' : 'Tambah ke wishlist'}
       >
-        <Heart size={16} className="text-earth" />
+        <Heart size={16} className={wishlisted ? 'fill-harvest text-harvest' : 'text-earth'} />
       </button>
 
       <div className="aspect-square bg-cream overflow-hidden">
