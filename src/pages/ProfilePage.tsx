@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
-import { User, ClipboardList, Heart, MapPin, Bell, Settings, HelpCircle, ChevronRight } from 'lucide-react'
+import { User, ClipboardList, Heart, MapPin, Bell, Settings, HelpCircle, ChevronRight, Sprout, LogOut } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
+import { useAuth } from '@/context/AuthContext'
 
 interface MenuItem {
   icon: typeof ClipboardList
@@ -10,6 +11,7 @@ interface MenuItem {
 
 export default function ProfilePage() {
   const navigate = useNavigate()
+  const { user, isLoggedIn, logout } = useAuth()
 
   const handleLogin = () => {
     navigate('/login')
@@ -24,23 +26,45 @@ export default function ProfilePage() {
     { icon: HelpCircle, label: 'Bantuan', route: '/bantuan' },
   ]
 
+  if (isLoggedIn && user?.userType === 'farmer') {
+    menuItems.unshift({ icon: Sprout, label: 'Dashboard Petani', route: '/dashboard-petani' })
+  }
+
   return (
     <PageWrapper>
       <div className="bg-soil px-4 py-8">
         <div className="flex flex-col items-center text-center">
           <div className="w-20 h-20 rounded-full bg-cream flex items-center justify-center mb-4">
-            <User size={32} className="text-earth" />
+            {isLoggedIn ? (
+              <Sprout size={32} className={user?.userType === 'farmer' ? 'text-leaf' : 'text-harvest'} />
+            ) : (
+              <User size={32} className="text-earth" />
+            )}
           </div>
-          <h1 className="font-display text-section text-cream mb-1">Tamu</h1>
+          <h1 className="font-display text-section text-cream mb-1">
+            {isLoggedIn ? user?.name ?? 'User' : 'Tamu'}
+          </h1>
           <p className="text-caption text-cream/70 mb-4">
-            Masuk untuk pengalaman lengkap
+            {isLoggedIn
+              ? user?.userType === 'farmer' ? 'Akun Petani' : 'Akun Pembeli'
+              : 'Masuk untuk pengalaman lengkap'}
           </p>
-          <button
-            onClick={handleLogin}
-            className="px-6 py-2.5 rounded-pill border border-cream text-cream font-semibold text-sm hover:bg-cream/10 transition-colors"
-          >
-            Masuk / Daftar
-          </button>
+          {isLoggedIn ? (
+            <button
+              onClick={() => { logout(); navigate('/') }}
+              className="px-6 py-2.5 rounded-pill border border-cream text-cream font-semibold text-sm hover:bg-cream/10 transition-colors flex items-center gap-2"
+            >
+              <LogOut size={16} />
+              Keluar
+            </button>
+          ) : (
+            <button
+              onClick={handleLogin}
+              className="px-6 py-2.5 rounded-pill border border-cream text-cream font-semibold text-sm hover:bg-cream/10 transition-colors"
+            >
+              Masuk / Daftar
+            </button>
+          )}
         </div>
       </div>
 

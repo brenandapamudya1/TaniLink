@@ -31,6 +31,7 @@ export const products: Product[] = [
     harvestDate: '2025-01-15',
     rating: 4.8,
     reviewCount: 24,
+    grade: 'A',
   },
   {
     id: 'prod-002',
@@ -47,6 +48,7 @@ export const products: Product[] = [
     harvestDate: '2025-01-14',
     rating: 4.9,
     reviewCount: 31,
+    grade: 'A',
   },
   {
     id: 'prod-003',
@@ -63,6 +65,7 @@ export const products: Product[] = [
     harvestDate: '2025-01-15',
     rating: 4.6,
     reviewCount: 18,
+    grade: 'B',
   },
   {
     id: 'prod-004',
@@ -79,6 +82,7 @@ export const products: Product[] = [
     harvestDate: '2025-01-13',
     rating: 4.7,
     reviewCount: 15,
+    grade: 'A',
   },
   {
     id: 'prod-005',
@@ -95,6 +99,7 @@ export const products: Product[] = [
     harvestDate: '2025-01-12',
     rating: 4.8,
     reviewCount: 42,
+    grade: 'A',
   },
   {
     id: 'prod-006',
@@ -111,6 +116,7 @@ export const products: Product[] = [
     harvestDate: '2025-01-15',
     rating: 4.5,
     reviewCount: 12,
+    grade: 'B',
   },
   {
     id: 'prod-007',
@@ -127,6 +133,7 @@ export const products: Product[] = [
     harvestDate: '2025-01-15',
     rating: 4.7,
     reviewCount: 22,
+    grade: 'B',
   },
   {
     id: 'prod-008',
@@ -143,6 +150,7 @@ export const products: Product[] = [
     harvestDate: '2025-01-10',
     rating: 4.9,
     reviewCount: 28,
+    grade: 'A',
   },
   {
     id: 'prod-009',
@@ -159,6 +167,7 @@ export const products: Product[] = [
     harvestDate: '2025-01-11',
     rating: 4.6,
     reviewCount: 19,
+    grade: 'A',
   },
   {
     id: 'prod-010',
@@ -175,6 +184,7 @@ export const products: Product[] = [
     harvestDate: '2025-01-08',
     rating: 4.8,
     reviewCount: 35,
+    grade: 'A',
   },
   {
     id: 'prod-011',
@@ -191,6 +201,7 @@ export const products: Product[] = [
     harvestDate: '2025-01-14',
     rating: 4.7,
     reviewCount: 16,
+    grade: 'C',
   },
   {
     id: 'prod-012',
@@ -207,6 +218,7 @@ export const products: Product[] = [
     harvestDate: '2025-01-14',
     rating: 4.8,
     reviewCount: 27,
+    grade: 'A',
   },
   {
     id: 'prod-013',
@@ -239,5 +251,6 @@ export const products: Product[] = [
     harvestDate: '2025-01-10',
     rating: 4.6,
     reviewCount: 14,
+    grade: 'C',
   },
 ]

@@ -1,4 +1,5 @@
-import { ChevronDown } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { ChevronDown, ArrowLeft } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 
 interface FaqItem {
@@ -40,11 +41,22 @@ const faqs: FaqItem[] = [
 ]
 
 export default function BantuanPage() {
+  const navigate = useNavigate()
+
   return (
     <PageWrapper>
-      <div className="px-4 py-6">
-        <h1 className="font-display text-title text-soil mb-6">Pusat Bantuan</h1>
+      <div className="sticky top-14 z-30 bg-fog px-4 py-3 border-b border-cream flex items-center gap-3">
+        <button
+          onClick={() => navigate(-1)}
+          className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-cream transition-colors"
+          aria-label="Kembali"
+        >
+          <ArrowLeft size={20} className="text-soil" />
+        </button>
+        <h1 className="font-display text-section text-soil">Pusat Bantuan</h1>
+      </div>
 
+      <div className="px-4 py-6">
         <div className="bg-fog rounded-lg shadow-card overflow-hidden">
           {faqs.map((faq, index) => (
             <details

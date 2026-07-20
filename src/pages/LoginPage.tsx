@@ -2,23 +2,32 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, User, Sprout, Mail, Lock, Eye, EyeOff } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
-
-type AuthMode = 'login' | 'register'
-type UserType = 'user' | 'farmer'
+import { useAuth } from '@/context/AuthContext'
+import type { UserType } from '@/types/auth'
 
 export default function LoginPage() {
   const navigate = useNavigate()
-  const [mode, setMode] = useState<AuthMode>('login')
-  const [userType, setUserType] = useState<UserType>('user')
+  const { login } = useAuth()
+  const [userType, setUserType] = useState<UserType>('buyer')
   const [showPassword, setShowPassword] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    alert(
-      mode === 'login'
-        ? `Login sebagai ${userType === 'user' ? 'User' : 'Petani'} — fitur ini akan segera hadir!`
-        : `Daftar sebagai ${userType === 'user' ? 'User' : 'Petani'} — fitur ini akan segera hadir!`
-    )
+    setError('')
+
+    const success = login(email, password, userType)
+    if (success) {
+      if (userType === 'farmer') {
+        navigate('/dashboard-petani')
+      } else {
+        navigate('/')
+      }
+    } else {
+      setError('Email atau password salah. Coba lagi.')
+    }
   }
 
   return (
@@ -32,33 +41,29 @@ export default function LoginPage() {
           <ArrowLeft size={20} className="text-soil" />
         </button>
 
-        <h1 className="font-display text-title text-soil mb-2">
-          {mode === 'login' ? 'Masuk' : 'Daftar'}
-        </h1>
+        <h1 className="font-display text-title text-soil mb-2">Masuk</h1>
         <p className="text-body text-earth mb-6">
-          {mode === 'login'
-            ? 'Masuk ke akun TaniLink kamu'
-            : 'Buat akun TaniLink baru'}
+          Masuk ke akun TaniLink kamu
         </p>
 
         <div className="bg-fog rounded-lg shadow-card p-4 mb-6">
           <p className="text-caption text-earth font-semibold mb-3">Masuk sebagai:</p>
           <div className="grid grid-cols-2 gap-3">
             <button
-              onClick={() => setUserType('user')}
+              onClick={() => setUserType('buyer')}
               className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-colors ${
-                userType === 'user'
+                userType === 'buyer'
                   ? 'border-harvest bg-harvest/5'
                   : 'border-cream hover:border-harvest/50'
               }`}
             >
               <User
                 size={32}
-                className={userType === 'user' ? 'text-harvest' : 'text-earth'}
+                className={userType === 'buyer' ? 'text-harvest' : 'text-earth'}
               />
               <span
                 className={`text-sm font-semibold ${
-                  userType === 'user' ? 'text-soil' : 'text-earth'
+                  userType === 'buyer' ? 'text-soil' : 'text-earth'
                 }`}
               >
                 Pembeli
@@ -95,20 +100,6 @@ export default function LoginPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="bg-fog rounded-lg shadow-card p-4 space-y-4">
-          {mode === 'register' && (
-            <div>
-              <label htmlFor="name" className="block text-sm font-semibold text-soil mb-2">
-                Nama Lengkap
-              </label>
-              <input
-                id="name"
-                type="text"
-                placeholder={userType === 'user' ? 'Nama kamu' : 'Nama petani'}
-                className="w-full px-4 py-3 rounded-lg border border-cream focus:border-harvest focus:outline-none text-soil placeholder:text-earth/50"
-              />
-            </div>
-          )}
-
           <div>
             <label htmlFor="email" className="block text-sm font-semibold text-soil mb-2">
               Email
@@ -118,7 +109,9 @@ export default function LoginPage() {
               <input
                 id="email"
                 type="email"
-                placeholder="email@contoh.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={userType === 'buyer' ? 'pembeli@tanilink.id' : 'petani@tanilink.id'}
                 className="w-full pl-11 pr-4 py-3 rounded-lg border border-cream focus:border-harvest focus:outline-none text-soil placeholder:text-earth/50"
               />
             </div>
@@ -133,6 +126,8 @@ export default function LoginPage() {
               <input
                 id="password"
                 type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 className="w-full pl-11 pr-11 py-3 rounded-lg border border-cream focus:border-harvest focus:outline-none text-soil placeholder:text-earth/50"
               />
@@ -147,38 +142,31 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {mode === 'register' && userType === 'farmer' && (
-            <div>
-              <label htmlFor="location" className="block text-sm font-semibold text-soil mb-2">
-                Lokasi Kebun
-              </label>
-              <input
-                id="location"
-                type="text"
-                placeholder="Contoh: Malang, Jawa Timur"
-                className="w-full px-4 py-3 rounded-lg border border-cream focus:border-harvest focus:outline-none text-soil placeholder:text-earth/50"
-              />
-            </div>
+          {error && (
+            <p className="text-caption text-red-500 font-semibold">{error}</p>
           )}
 
           <button
             type="submit"
             className="w-full py-3.5 rounded-pill bg-harvest text-soil font-bold text-base shadow-cta hover:brightness-105 active:scale-95 transition-all"
           >
-            {mode === 'login' ? 'Masuk' : 'Daftar'}
+            Masuk
           </button>
         </form>
 
-        <div className="text-center mt-6">
-          <p className="text-caption text-earth">
-            {mode === 'login' ? 'Belum punya akun?' : 'Sudah punya akun?'}
-          </p>
-          <button
-            onClick={() => setMode(mode === 'login' ? 'register' : 'login')}
-            className="text-sm font-semibold text-harvest hover:underline mt-1"
-          >
-            {mode === 'login' ? 'Daftar sekarang' : 'Masuk di sini'}
-          </button>
+        <div className="mt-6 bg-cream/50 rounded-lg p-4">
+          <p className="text-caption text-earth font-semibold mb-2">Demo credentials:</p>
+          {userType === 'farmer' ? (
+            <div className="space-y-1">
+              <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">petani@tanilink.id</span></p>
+              <p className="text-caption text-soil">Password: <span className="font-mono font-semibold">petani123</span></p>
+            </div>
+          ) : (
+            <div className="space-y-1">
+              <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">pembeli@tanilink.id</span></p>
+              <p className="text-caption text-soil">Password: <span className="font-mono font-semibold">pembeli123</span></p>
+            </div>
+          )}
         </div>
       </div>
     </PageWrapper>

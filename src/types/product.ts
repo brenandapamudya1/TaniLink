@@ -13,4 +13,5 @@ export interface Product {
   harvestDate: string
   rating: number
   reviewCount: number
+  grade?: 'A' | 'B' | 'C'
 }

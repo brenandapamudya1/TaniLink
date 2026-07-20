@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Globe, Moon, Bell, User, Trash2, Info } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { Globe, Moon, Bell, User, Trash2, Info, ArrowLeft } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 
 interface ToggleRowProps {
@@ -36,6 +37,7 @@ function ToggleRow({ icon: Icon, label, description, value, onChange }: ToggleRo
 }
 
 export default function PengaturanPage() {
+  const navigate = useNavigate()
   const [bahasa, setBahasa] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
   const [notifPush, setNotifPush] = useState(true)
@@ -50,9 +52,18 @@ export default function PengaturanPage() {
 
   return (
     <PageWrapper>
-      <div className="px-4 py-6">
-        <h1 className="font-display text-title text-soil mb-6">Pengaturan</h1>
+      <div className="sticky top-14 z-30 bg-fog px-4 py-3 border-b border-cream flex items-center gap-3">
+        <button
+          onClick={() => navigate(-1)}
+          className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-cream transition-colors"
+          aria-label="Kembali"
+        >
+          <ArrowLeft size={20} className="text-soil" />
+        </button>
+        <h1 className="font-display text-section text-soil">Pengaturan</h1>
+      </div>
 
+      <div className="px-4 py-6">
         <div className="bg-fog rounded-lg shadow-card overflow-hidden">
           <div className="px-4">
             <h2 className="text-earth text-caption font-semibold uppercase tracking-wider pt-4 pb-2">

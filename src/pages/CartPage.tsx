@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ShoppingCart, Trash2, Minus, Plus } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { Button } from '@/components/ui/Button'
@@ -6,6 +6,7 @@ import { useCart } from '@/context/CartContext'
 import { formatPrice } from '@/utils/formatPrice'
 
 export default function CartPage() {
+  const navigate = useNavigate()
   const { items, updateQty, removeItem, totalItems, totalPrice } = useCart()
 
   if (items.length === 0) {
@@ -29,7 +30,7 @@ export default function CartPage() {
   }
 
   const handleCheckout = () => {
-    alert('Fitur checkout akan segera hadir!')
+    navigate('/checkout')
   }
 
   return (
@@ -120,9 +121,6 @@ export default function CartPage() {
           >
             Checkout
           </button>
-          <p className="text-caption text-earth text-center mt-2">
-            *Dummy — belum ada pembayaran
-          </p>
         </div>
       </div>
     </PageWrapper>

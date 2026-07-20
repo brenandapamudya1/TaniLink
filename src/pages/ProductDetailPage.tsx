@@ -84,11 +84,22 @@ export default function ProductDetailPage() {
       </div>
 
       <div className="px-4 py-6">
-        {product.tags.length > 0 && (
-          <span className="inline-block px-3 py-1 rounded-pill bg-leaf text-cream text-caption font-semibold mb-3">
-            {product.tags[0]}
-          </span>
-        )}
+        <div className="flex flex-wrap gap-2 mb-3">
+          {product.tags.length > 0 && (
+            <span className="inline-block px-3 py-1 rounded-pill bg-leaf text-cream text-caption font-semibold">
+              {product.tags[0]}
+            </span>
+          )}
+          {product.grade && (
+            <span className={`inline-block px-3 py-1 rounded-pill text-caption font-semibold ${
+              product.grade === 'A' ? 'bg-leaf text-cream' :
+              product.grade === 'B' ? 'bg-earth text-cream' :
+              'bg-earth/50 text-cream'
+            }`}>
+              Grade {product.grade}
+            </span>
+          )}
+        </div>
 
         <h1 className="font-display text-title text-soil leading-tight mb-2">
           {product.name}

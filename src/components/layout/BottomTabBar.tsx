@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Home, Leaf, ShoppingCart, Users, MoreHorizontal, ClipboardList, User, Info, X } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
+import { useAuth } from '@/context/AuthContext'
 
 interface TabItem {
   label: string
@@ -32,9 +33,15 @@ export function BottomTabBar() {
   const location = useLocation()
   const navigate = useNavigate()
   const { totalItems } = useCart()
+  const { user } = useAuth()
   const [showSheet, setShowSheet] = useState(false)
 
-  const isActive = (path: string) => location.pathname === path
+  const isActive = (path: string) => {
+    if (path === '/' && user?.userType === 'farmer') {
+      return location.pathname === '/' || location.pathname === '/dashboard-petani'
+    }
+    return location.pathname === path
+  }
 
   const handleTabClick = (path: string) => {
     navigate(path)

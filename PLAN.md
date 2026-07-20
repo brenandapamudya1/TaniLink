@@ -204,6 +204,141 @@
 
 ---
 
+## Phase K: Complete Buyer Experience ✅
+
+> **Tujuan:** Selesaikan semua fitur pembeli yang partial agar Phase 0 siap demo. Fokus pada UX pembeli yang lengkap.
+
+### K1: Filter Harga di ProductListPage ✅
+
+| File | Perubahan |
+|------|-----------|
+| `src/pages/ProductListPage.tsx` | Tambah price range filter (min-max input atau slider). Filter products berdasarkan range harga. UI: Input min & max dengan tombol "Terapkan" |
+
+### K2: Filter Lokasi Petani di ProductListPage ✅
+
+| File | Perubahan |
+|------|-----------|
+| `src/pages/ProductListPage.tsx` | Tambah filter chip lokasi (Malang, Lembang, Bali, dll). Ambil data lokasi dari `farmers`. Filter products berdasarkan farmerId → farmer.location |
+
+### K3: Grade Kualitas di ProductDetailPage ✅
+
+| File | Perubahan |
+|------|-----------|
+| `src/types/product.ts` | Tambah field `grade?: 'A' \| 'B' \| 'C'` |
+| `src/data/products.ts` | Tambah data grade untuk setiap produk |
+| `src/pages/ProductDetailPage.tsx` | Tampilkan grade badge (A=leaf, B=earth, C=earth/50) di detail produk |
+
+### K4: Checkout Flow di CartPage ✅
+
+| File | Perubahan |
+|------|-----------|
+| `src/pages/CheckoutPage.tsx` (baru) | Halaman checkout: alamat pengiriman, metode pembayaran (Transfer/E-Wallet/COD), pilihan pengiriman (Instant/Regular), ringkasan pesanan, tombol "Bayar" |
+| `src/App.tsx` | Tambah route `/checkout` |
+| `src/pages/CartPage.tsx` | Ubah tombol "Checkout" → navigate ke `/checkout` |
+
+### K5: Order Tracking UI di OrdersPage ✅
+
+| File | Perubahan |
+|------|-----------|
+| `src/data/orders.ts` (baru) | Mock data pesanan (2-3 pesanan dummy) dengan status: diproses/dikirim/selesai |
+| `src/components/ui/OrderCard.tsx` (baru) | Komponen order dengan tracking timeline: Dipanen → Dikumpulkan → Perjalanan → Selesai |
+| `src/pages/OrdersPage.tsx` | Render daftar pesanan dari mock data. Highlight step aktif, step sebelumnya completed |
+
+### K6: Mock Notifikasi di NotifikasiPage ✅
+
+| File | Perubahan |
+|------|-----------|
+| `src/data/notifications.ts` (baru) | Mock data notifikasi (5-6 item): status pesanan, promo, harga naik/turun |
+| `src/components/ui/NotificationItem.tsx` (baru) | Komponen notifikasi: icon, judul, deskripsi, timestamp, badge read/unread |
+| `src/pages/NotifikasiPage.tsx` | Render daftar notifikasi dari mock data |
+
+### K7: Verifikasi Phase K ✅
+
+| Step | Command | Expected |
+|------|---------|----------|
+| K7a | `npx tsc -b` | 0 error |
+| K7b | `npm run build` | Build sukses |
+| K7c | Manual test: filter harga, lokasi, checkout, tracking, notifikasi | Semua fitur berjalan |
+
+### Ringkasan File Phase K
+
+| Kategori | File |
+|----------|------|
+| **Baru (5)** | `src/pages/CheckoutPage.tsx`, `src/data/orders.ts`, `src/components/ui/OrderCard.tsx`, `src/data/notifications.ts`, `src/components/ui/NotificationItem.tsx` |
+| **Diubah (5)** | `src/types/product.ts`, `src/data/products.ts`, `src/pages/ProductListPage.tsx`, `src/pages/ProductDetailPage.tsx`, `src/pages/OrdersPage.tsx`, `src/pages/NotifikasiPage.tsx`, `src/pages/CartPage.tsx`, `src/App.tsx` |
+| **Total** | ~10-12 file |
+
+---
+
+## Phase L: Farmer Dashboard + Login Flow ✅
+
+> **Tujuan:** Bangun dashboard petani dengan dummy login flow. User bisa masuk sebagai petani dan akses dashboard khusus petani.
+
+### L1: Enhance LoginPage → Dummy Petani Login ✅
+
+| File | Perubahan |
+|------|-----------|
+| `src/context/AuthContext.tsx` (baru) | AuthContext untuk simulasi login: `isLoggedIn`, `userType` ('buyer' \| 'farmer'), `farmerId`, `login()`, `logout()`. State disimpan di localStorage |
+| `src/pages/LoginPage.tsx` | Setelah klik "Masuk" sebagai petani → panggil `login()` dengan dummy credentials → redirect ke `/dashboard-petani`. Email: `petani@tanilink.id`, Password: `petani123` |
+| `src/main.tsx` | Wrap App dengan `<AuthProvider>` |
+
+### L2: Dashboard Petani ✅
+
+| File | Route | Deskripsi |
+|------|-------|-----------|
+| `src/pages/FarmerDashboardPage.tsx` | `/dashboard-petani` | Stats cards (4): Total Penjualan, Pesanan Bulan Ini, Produk Aktif, Rating. Grafik penjualan sederhana (bar chart mock). Riwayat pesanan terbaru. Tombol "Upload Produk" → `/upload-produk` |
+
+### L3: Upload Produk Petani ✅
+
+| File | Route | Deskripsi |
+|------|-------|-----------|
+| `src/pages/UploadProdukPage.tsx` | `/upload-produk` | Form: nama produk, kategori (dropdown), harga, stok, tanggal panen, deskripsi. Tombol "Upload" → dummy alert sukses, redirect ke dashboard |
+
+### L4: Harga Pasar ✅
+
+| File | Route | Deskripsi |
+|------|-------|-----------|
+| `src/data/marketPrices.ts` (baru) | — | Mock data 10-15 komoditas: nama, harga rata-rata, perubahan (%), trend (up/down) |
+| `src/pages/HargaPasarPage.tsx` | `/harga-pasar` | Tabel komoditas dengan filter kategori. Kolom: nama, harga, perubahan (↑ hijau / ↓ merah), trend icon |
+
+### L5: Riwayat Pesanan Petani ✅
+
+| File | Route | Deskripsi |
+|------|-------|-----------|
+| `src/data/farmerOrders.ts` (baru) | — | Mock data pesanan petani: status (Baru/Diproses/Dikirim/Selesai), detail pembeli, produk, total |
+| `src/pages/PetaniOrdersPage.tsx` | `/pesanan-petani` | List pesanan masuk dengan tab filter status. Tombol "Proses" / "Kirim" (dummy) |
+
+### L6: Integrasi ke ProfilePage ✅
+
+| File | Perubahan |
+|------|-----------|
+| `src/pages/ProfilePage.tsx` | Tambah menu "Dashboard Petani" (hanya muncul jika `userType === 'farmer'` dari AuthContext). Navigate ke `/dashboard-petani` |
+
+### L7: Mock Session & Protected Routes ✅
+
+| File | Perubahan |
+|------|-----------|
+| `src/components/layout/ProtectedRoute.tsx` (baru) | Wrapper untuk route petani: cek `isLoggedIn && userType === 'farmer'`, jika tidak → redirect ke `/login` |
+| `src/App.tsx` | Wrap route `/dashboard-petani`, `/upload-produk`, `/harga-pasar`, `/pesanan-petani` dengan ProtectedRoute |
+
+### L8: Verifikasi Phase L ✅
+
+| Step | Command | Expected |
+|------|---------|----------|
+| L8a | `npx tsc -b` | 0 error |
+| L8b | `npm run build` | Build sukses |
+| L8c | Manual test: login sebagai petani → dashboard → upload produk → harga pasar | Semua fitur berjalan |
+
+### Ringkasan File Phase L
+
+| Kategori | File |
+|----------|------|
+| **Baru (7)** | `src/context/AuthContext.tsx`, `src/components/layout/ProtectedRoute.tsx`, `src/pages/FarmerDashboardPage.tsx`, `src/pages/UploadProdukPage.tsx`, `src/pages/HargaPasarPage.tsx`, `src/data/marketPrices.ts`, `src/data/farmerOrders.ts`, `src/pages/PetaniOrdersPage.tsx` |
+| **Diubah (4)** | `src/pages/LoginPage.tsx`, `src/pages/ProfilePage.tsx`, `src/App.tsx`, `src/main.tsx` |
+| **Total** | ~11-12 file |
+
+---
+
 ## Assets (Placeholder untuk Sekarang)
 
 | File | Lokasi | Status |
@@ -234,6 +369,8 @@ G1-G7  → Homepage sections ✅
 H1-H9  → Pages + App.tsx routing ✅
 I1-I3  → Verifikasi build ✅
 J1-J10 → Profile menu pages + Wishlist integration ✅
+K1-K7  → Complete Buyer Experience ✅
+L1-L8  → Farmer Dashboard + Login Flow ✅
 ```
 
 ---
