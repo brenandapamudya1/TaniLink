@@ -1,4 +1,5 @@
-import { useNavigate, useLocation, Link } from 'react-router-dom'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { CheckCircle, Package, ArrowLeft, MapPin, CreditCard, Truck, Download } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { formatPrice } from '@/utils/formatPrice'
@@ -37,33 +38,276 @@ const shippingLabels: Record<string, string> = {
   instant: 'Instant (Hari ini sampai)',
 }
 
-export default function ReceiptPage() {
-  const navigate = useNavigate()
-  const location = useLocation()
-  const order = (location.state as { order?: ReceiptData })?.order
+function drawReceipt(ctx: CanvasRenderingContext2D, order: ReceiptData) {
+  const width = 600
+  const height = 900
+  const padding = 40
+  const lineHeight = 22
+  let y = 0
 
-  if (!order) {
-    navigate('/pesanan')
-    return null
+  const items = order.items
+
+  ctx.fillStyle = '#FFFFFF'
+  ctx.fillRect(0, 0, width, height)
+
+  ctx.fillStyle = '#1C1A14'
+  ctx.fillRect(0, 0, width, 80)
+
+  ctx.fillStyle = '#F5F0E8'
+  ctx.font = 'bold 28px sans-serif'
+  ctx.textAlign = 'center'
+  ctx.fillText('TaniLink', width / 2, 38)
+
+  ctx.font = '13px sans-serif'
+  ctx.fillStyle = '#F5F0E8'
+  ctx.fillText('Bukti Pembayaran', width / 2, 62)
+
+  y = 110
+
+  ctx.fillStyle = '#2D5016'
+  ctx.beginPath()
+  ctx.arc(width / 2, y + 16, 16, 0, Math.PI * 2)
+  ctx.fill()
+
+  ctx.fillStyle = '#F5F0E8'
+  ctx.font = 'bold 16px sans-serif'
+  ctx.fillText('✓', width / 2, y + 22)
+
+  y += 48
+  ctx.fillStyle = '#1C1A14'
+  ctx.font = 'bold 16px sans-serif'
+  ctx.fillText('Pembayaran Berhasil!', width / 2, y)
+
+  y += 30
+  ctx.strokeStyle = '#F5F0E8'
+  ctx.lineWidth = 1
+  ctx.setLineDash([4, 4])
+  ctx.beginPath()
+  ctx.moveTo(padding, y)
+  ctx.lineTo(width - padding, y)
+  ctx.stroke()
+  ctx.setLineDash([])
+
+  y += 24
+
+  ctx.textAlign = 'left'
+  ctx.font = '12px sans-serif'
+  ctx.fillStyle = '#6B4E2A'
+  ctx.fillText('No. Pesanan', padding, y)
+  ctx.textAlign = 'right'
+  ctx.fillStyle = '#1C1A14'
+  ctx.font = 'bold 12px sans-serif'
+  ctx.fillText(order.orderId, width - padding, y)
+
+  y += lineHeight
+  ctx.textAlign = 'left'
+  ctx.font = '12px sans-serif'
+  ctx.fillStyle = '#6B4E2A'
+  ctx.fillText('Tanggal', padding, y)
+  ctx.textAlign = 'right'
+  ctx.fillStyle = '#1C1A14'
+  ctx.font = '12px sans-serif'
+  ctx.fillText(
+    new Date(order.date).toLocaleDateString('id-ID', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }),
+    width - padding,
+    y
+  )
+
+  y += lineHeight + 8
+  ctx.textAlign = 'left'
+  ctx.fillStyle = '#6B4E2A'
+  ctx.font = '12px sans-serif'
+  ctx.fillText('Pembayaran', padding, y)
+  ctx.textAlign = 'right'
+  ctx.fillStyle = '#1C1A14'
+  ctx.fillText(paymentLabels[order.paymentMethod] ?? order.paymentMethod, width - padding, y)
+
+  y += lineHeight + 8
+  ctx.textAlign = 'left'
+  ctx.fillStyle = '#6B4E2A'
+  ctx.fillText('Pengiriman', padding, y)
+  ctx.textAlign = 'right'
+  ctx.fillStyle = '#1C1A14'
+  ctx.fillText(shippingLabels[order.shippingMethod] ?? order.shippingMethod, width - padding, y)
+
+  y += lineHeight + 8
+  ctx.textAlign = 'left'
+  ctx.fillStyle = '#6B4E2A'
+  ctx.fillText('Dikirim ke', padding, y)
+  y += lineHeight
+  ctx.fillStyle = '#1C1A14'
+  ctx.font = 'bold 12px sans-serif'
+  ctx.fillText(`${order.address.name} (${order.address.phone})`, padding, y)
+  y += lineHeight
+  ctx.font = '12px sans-serif'
+  ctx.fillStyle = '#6B4E2A'
+  const addrWords = order.address.address.split(' ')
+  let addrLine = ''
+  for (const word of addrWords) {
+    if ((addrLine + ' ' + word).length > 55) {
+      ctx.fillText(addrLine.trim(), padding, y)
+      y += lineHeight
+      addrLine = word
+    } else {
+      addrLine += ' ' + word
+    }
+  }
+  if (addrLine.trim()) {
+    ctx.fillText(addrLine.trim(), padding, y)
   }
 
-  const handleDownloadReceipt = () => {
-    alert('Download receipt (dummy)')
+  y += lineHeight + 12
+  ctx.strokeStyle = '#F5F0E8'
+  ctx.setLineDash([4, 4])
+  ctx.beginPath()
+  ctx.moveTo(padding, y)
+  ctx.lineTo(width - padding, y)
+  ctx.stroke()
+  ctx.setLineDash([])
+
+  y += 20
+  ctx.textAlign = 'left'
+  ctx.fillStyle = '#1C1A14'
+  ctx.font = 'bold 13px sans-serif'
+  ctx.fillText('Pesanan', padding, y)
+  ctx.textAlign = 'right'
+  ctx.fillText('Total', width - padding, y)
+
+  y += 8
+  ctx.strokeStyle = '#F5F0E8'
+  ctx.setLineDash([2, 2])
+  ctx.beginPath()
+  ctx.moveTo(padding, y)
+  ctx.lineTo(width - padding, y)
+  ctx.stroke()
+  ctx.setLineDash([])
+
+  y += 16
+  for (const item of items) {
+    ctx.textAlign = 'left'
+    ctx.fillStyle = '#1C1A14'
+    ctx.font = '12px sans-serif'
+    const itemName = item.name.length > 30 ? item.name.substring(0, 30) + '...' : item.name
+    ctx.fillText(`${item.quantity}x ${itemName}`, padding, y)
+    ctx.textAlign = 'right'
+    ctx.font = 'bold 12px sans-serif'
+    ctx.fillText(formatPrice(item.price * item.quantity), width - padding, y)
+    y += lineHeight + 8
+  }
+
+  y += 4
+  ctx.strokeStyle = '#F5F0E8'
+  ctx.setLineDash([4, 4])
+  ctx.beginPath()
+  ctx.moveTo(padding, y)
+  ctx.lineTo(width - padding, y)
+  ctx.stroke()
+  ctx.setLineDash([])
+
+  y += 20
+  ctx.textAlign = 'left'
+  ctx.fillStyle = '#6B4E2A'
+  ctx.font = '12px sans-serif'
+  ctx.fillText('Subtotal', padding, y)
+  ctx.textAlign = 'right'
+  ctx.fillStyle = '#1C1A14'
+  ctx.font = '12px sans-serif'
+  ctx.fillText(formatPrice(order.subtotal), width - padding, y)
+
+  y += lineHeight
+  ctx.textAlign = 'left'
+  ctx.fillStyle = '#6B4E2A'
+  ctx.fillText('Ongkos Kirim', padding, y)
+  ctx.textAlign = 'right'
+  ctx.fillStyle = '#1C1A14'
+  ctx.fillText(formatPrice(order.shippingCost), width - padding, y)
+
+  y += lineHeight + 8
+  ctx.strokeStyle = '#1C1A14'
+  ctx.lineWidth = 2
+  ctx.beginPath()
+  ctx.moveTo(padding, y)
+  ctx.lineTo(width - padding, y)
+  ctx.stroke()
+
+  y += 24
+  ctx.textAlign = 'left'
+  ctx.fillStyle = '#1C1A14'
+  ctx.font = 'bold 16px sans-serif'
+  ctx.fillText('TOTAL', padding, y)
+  ctx.textAlign = 'right'
+  ctx.fillText(formatPrice(order.total), width - padding, y)
+
+  y += 36
+  ctx.textAlign = 'center'
+  ctx.fillStyle = '#6B4E2A'
+  ctx.font = '11px sans-serif'
+  ctx.fillText('Terima kasih telah berbelanja di TaniLink!', width / 2, y)
+  y += lineHeight
+  ctx.fillText('dari kebun langsung ke tanganmu', width / 2, y)
+}
+
+export default function ReceiptPage() {
+  const navigate = useNavigate()
+  const [order, setOrder] = useState<ReceiptData | null>(null)
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+
+  useEffect(() => {
+    const storedOrder = localStorage.getItem('lastOrder')
+    if (storedOrder) {
+      try {
+        setOrder(JSON.parse(storedOrder))
+      } catch {
+        navigate('/pesanan', { replace: true })
+      }
+    } else {
+      navigate('/pesanan', { replace: true })
+    }
+  }, [navigate])
+
+  const handleDownloadReceipt = useCallback(() => {
+    if (!order) return
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    drawReceipt(ctx, order)
+
+    const link = document.createElement('a')
+    link.download = `struk-${order.orderId}.png`
+    link.href = canvas.toDataURL('image/png')
+    link.click()
+  }, [order])
+
+  if (!order) {
+    return (
+      <PageWrapper>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <p className="text-caption text-earth">Memuat...</p>
+        </div>
+      </PageWrapper>
+    )
   }
 
   return (
     <PageWrapper>
-      <div className="sticky top-14 z-30 bg-fog px-4 py-3 border-b border-cream flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => navigate('/pesanan')}
-            className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-cream transition-colors"
-            aria-label="Kembali"
-          >
-            <ArrowLeft size={20} className="text-soil" />
-          </button>
-          <h1 className="font-display text-section text-soil">Bukti Pembayaran</h1>
-        </div>
+      <canvas ref={canvasRef} width={600} height={900} className="hidden" />
+
+      <div className="sticky top-14 z-30 bg-fog px-4 py-3 border-b border-cream flex items-center gap-3">
+        <button
+          onClick={() => navigate('/pesanan')}
+          className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-cream transition-colors"
+          aria-label="Kembali"
+        >
+          <ArrowLeft size={20} className="text-soil" />
+        </button>
+        <h1 className="font-display text-section text-soil">Bukti Pembayaran</h1>
       </div>
 
       <div className="px-4 py-6 space-y-6">
@@ -178,20 +422,13 @@ export default function ReceiptPage() {
           </div>
         </div>
 
-        <div className="flex gap-3">
-          <button
-            onClick={handleDownloadReceipt}
-            className="flex-1 py-3 rounded-pill border-2 border-harvest text-harvest font-bold text-sm hover:bg-harvest/5 active:scale-95 transition-all flex items-center justify-center gap-2"
-          >
-            <Download size={16} />
-            Unduh Bukti
-          </button>
-          <Link to="/pesanan">
-            <button className="flex-1 py-3 rounded-pill bg-harvest text-soil font-bold text-sm shadow-cta hover:brightness-105 active:scale-95 transition-all">
-              Lacak Pesanan
-            </button>
-          </Link>
-        </div>
+        <button
+          onClick={handleDownloadReceipt}
+          className="w-full py-3.5 rounded-pill bg-harvest text-soil font-bold text-base shadow-cta hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-2"
+        >
+          <Download size={18} />
+          Unduh Bukti Pembayaran
+        </button>
       </div>
     </PageWrapper>
   )

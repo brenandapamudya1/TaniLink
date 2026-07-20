@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, MapPin, CreditCard, Truck } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
@@ -13,11 +13,13 @@ export default function CheckoutPage() {
   const { items, totalPrice, clearCart } = useCart()
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('transfer')
   const [shippingMethod, setShippingMethod] = useState<ShippingMethod>('regular')
+  const isProcessingRef = useRef(false)
 
   const shippingCost = shippingMethod === 'instant' ? 15000 : 8000
   const finalTotal = totalPrice + shippingCost
 
   const handleBayar = () => {
+    isProcessingRef.current = true
     const orderData = {
       orderId: `ORD-${Date.now().toString().slice(-6)}`,
       date: new Date().toISOString(),
@@ -38,11 +40,13 @@ export default function CheckoutPage() {
         address: 'Jl. Melati No. 45, RT 03/RW 07, Kel. Sukamaju, Kec. Cilandak, Jakarta Selatan, DKI Jakarta 12430',
       },
     }
+    // Store order data in localStorage for receipt page
+    localStorage.setItem('lastOrder', JSON.stringify(orderData))
     clearCart()
-    navigate('/receipt', { state: { order: orderData } })
+    navigate('/receipt')
   }
 
-  if (items.length === 0) {
+  if (items.length === 0 && !isProcessingRef.current) {
     navigate('/keranjang')
     return null
   }

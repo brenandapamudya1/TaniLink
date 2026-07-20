@@ -140,17 +140,20 @@ export default function FarmerDashboardPage() {
             <h2 className="font-semibold text-soil text-base">Grafik Penjualan</h2>
             <span className="text-caption text-earth">12 bulan terakhir</span>
           </div>
-          <div className="flex items-end gap-1 h-40">
-            {salesData.map((d) => (
-              <div key={d.month} className="flex-1 flex flex-col items-center gap-1">
-                <span className="text-[9px] text-earth font-semibold">{d.value}</span>
-                <div
-                  className="w-full rounded-t-md bg-harvest transition-all hover:bg-harvest/80"
-                  style={{ height: `${(d.value / maxSales) * 85}%` }}
-                />
-                <span className="text-[9px] text-earth font-medium">{d.month}</span>
-              </div>
-            ))}
+          <div className="flex items-end gap-1.5 h-48">
+            {salesData.map((d) => {
+              const heightPercent = (d.value / maxSales) * 75
+              return (
+                <div key={d.month} className="flex-1 h-full flex flex-col justify-end items-center">
+                  <span className="text-[10px] text-earth font-bold">{d.value}</span>
+                  <div
+                    className="w-full rounded-t-lg bg-harvest transition-all hover:bg-harvest/80 min-h-[20px]"
+                    style={{ height: `${heightPercent}%` }}
+                  />
+                  <span className="text-[10px] text-earth font-semibold mt-1.5">{d.month}</span>
+                </div>
+              )
+            })}
           </div>
         </div>
 
