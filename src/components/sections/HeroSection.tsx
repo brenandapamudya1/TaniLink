@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Wheat, Package, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { StatPill } from '@/components/ui/StatPill'
+import heroFarmerImg from '@/assets/hero-farmer.jpeg'
 
 export function HeroSection() {
   return (
@@ -32,7 +33,7 @@ export function HeroSection() {
 
         <div className="rounded-xl overflow-hidden shadow-hero">
           <img
-            src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80"
+            src={heroFarmerImg}
             alt="Petani memegang hasil panen segar dari kebun"
             className="w-full aspect-[4/3] object-cover"
           />

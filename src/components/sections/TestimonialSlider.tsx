@@ -1,4 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
+import testimonialPakAmin from '@/assets/testimonial-pak-amin.jpeg'
+import testimonialBuRatna from '@/assets/testimonial-bu-ratna.jpg'
+import testimonialPakWayan from '@/assets/testimonial-pak-wayan.jpeg'
 
 interface Testimonial {
   id: number
@@ -14,21 +17,21 @@ const testimonials: Testimonial[] = [
     quote: 'Dulu saya jual ke tengkulak Rp 800/kg. Sekarang saya bisa dapat Rp 3.200/kg.',
     name: 'Pak Suryanto',
     role: 'Petani Sayur, Malang',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80',
+    avatar: testimonialPakAmin,
   },
   {
     id: 2,
     quote: 'Anak-anak saya sekarang makan sayur segar setiap hari. Harganya terjangkau dan kualitasnya jauh lebih baik.',
     name: 'Bu Ratna',
     role: 'Konsumen, Jakarta',
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80',
+    avatar: testimonialBuRatna,
   },
   {
     id: 3,
     quote: 'Platform ini membantu kami menjangkau pasar yang lebih luas tanpa harus bergantung pada tengkulak.',
     name: 'Pak Wayan',
     role: 'Petani Organik, Bali',
-    avatar: 'https://images.unsplash.com/photo-1506794783210-15d02344e488?w=200&q=80',
+    avatar: testimonialPakWayan,
   },
 ]
 

@@ -1,13 +1,24 @@
 import type { Farmer } from '@/types/farmer'
 
+import farmerAminAvatar from '@/assets/farmers/farmer-amin.jpeg'
+import farmerSariAvatar from '@/assets/farmers/farmer-sari.jpeg'
+import farmerWayanAvatar from '@/assets/farmers/farmer-wayan.jpeg'
+import farmerTogasAvatar from '@/assets/farmers/farmer-togas.jpeg'
+import farmerHasnahAvatar from '@/assets/farmers/farmer-hasnah.jpg'
+import coverAmin from '@/assets/farmers/cover-amin.jpeg'
+import coverSari from '@/assets/farmers/cover-sari.jpeg'
+import coverWayan from '@/assets/farmers/cover-wayan.jpeg'
+import coverTogas from '@/assets/farmers/cover-togas.jpeg'
+import coverHasnah from '@/assets/farmers/cover-hasnah.jpeg'
+
 export const farmers: Farmer[] = [
   {
     id: 'farmer-001',
     name: 'Pak Amin Suryadi',
     slug: 'pak-amin-suryadi',
     location: 'Malang, Jawa Timur',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80',
-    coverImage: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
+    avatar: farmerAminAvatar,
+    coverImage: coverAmin,
     bio: 'Petani sayur organik generasi kedua. Mengelola lahan 2 hektar di lereng Arjuno dengan metode tanam rotasi.',
     since: '2021',
     productCount: 12,
@@ -20,8 +31,8 @@ export const farmers: Farmer[] = [
     name: 'Bu Sari Dewi',
     slug: 'bu-sari-dewi',
     location: 'Lembang, Jawa Barat',
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80',
-    coverImage: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80',
+    avatar: farmerSariAvatar,
+    coverImage: coverSari,
     bio: 'Spesialis tomat dan paprika hidroponik. Pionir pertanian urban di dataran tinggi Lembang.',
     since: '2020',
     productCount: 8,
@@ -34,8 +45,8 @@ export const farmers: Farmer[] = [
     name: 'Pak Wayan Putra',
     slug: 'pak-wayan-putra',
     location: 'Tabanan, Bali',
-    avatar: 'https://images.unsplash.com/photo-1506794783210-15d02344e488?w=200&q=80',
-    coverImage: 'https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?w=800&q=80',
+    avatar: farmerWayanAvatar,
+    coverImage: coverWayan,
     bio: 'Petani subak tradisional Bali. Melestarikan varietas beras lokal dan rempah organik.',
     since: '2022',
     productCount: 6,
@@ -48,8 +59,8 @@ export const farmers: Farmer[] = [
     name: 'Pak Togas Siregar',
     slug: 'pak-togas-siregar',
     location: 'Berastagi, Sumatera Utara',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80',
-    coverImage: 'https://images.unsplash.com/photo-1595855759920-86582d385836?w=800&q=80',
+    avatar: farmerTogasAvatar,
+    coverImage: coverTogas,
     bio: 'Membudidayakan jeruk dan markisa dataran tinggi Karo. Menggerakkan koperasi petani lokal.',
     since: '2019',
     productCount: 9,
@@ -62,8 +73,8 @@ export const farmers: Farmer[] = [
     name: 'Bu Hasnah Rahman',
     slug: 'bu-hasnah-rahman',
     location: 'Malino, Sulawesi Selatan',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80',
-    coverImage: 'https://images.unsplash.com/photo-1574943320219-553eb36f1a81?w=800&q=80',
+    avatar: farmerHasnahAvatar,
+    coverImage: coverHasnah,
     bio: 'Petani sayur dan umbi dataran tinggi Malino. Aktif memberdayakan kelompok tani perempuan.',
     since: '2023',
     productCount: 7,

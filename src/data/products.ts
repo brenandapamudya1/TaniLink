@@ -1,5 +1,20 @@
 import type { Product } from '@/types/product'
 
+import bayamImg from '@/assets/products/product-bayam.jpg'
+import tomatImg from '@/assets/products/product-tomat.jpg'
+import kangkungImg from '@/assets/products/product-kangkung.jpg'
+import cabaiRawitImg from '@/assets/products/product-cabai-rawit.jpg'
+import jerukMedanImg from '@/assets/products/product-jeruk-medan.jpg'
+import wortelBabyImg from '@/assets/products/product-wortel-baby.jpeg'
+import seladaImg from '@/assets/products/product-selada.jpg'
+import jaheMerahImg from '@/assets/products/product-jahe-merah.jpg'
+import markisaImg from '@/assets/products/product-markisa.jpeg'
+import berasMerahImg from '@/assets/products/product-beras-merah.jpeg'
+import ubiUnguImg from '@/assets/products/product-ubi-ungu.jpeg'
+import paprikaImg from '@/assets/products/product-paprika.jpeg'
+import jagungImg from '@/assets/products/product-jagung.jpg'
+import kunyitImg from '@/assets/products/product-kunyit.jpg'
+
 export const products: Product[] = [
   {
     id: 'prod-001',
@@ -10,7 +25,7 @@ export const products: Product[] = [
     price: 4500,
     unit: '250g',
     stock: 50,
-    images: ['https://images.unsplash.com/photo-1576045057995-528f5f853603?w=400&q=80'],
+    images: [bayamImg],
     description: 'Bayam hijau organik dipetik pagi hari dari lahan lereng Arjuno. Segar, renyah, dan kaya zat besi.',
     tags: ['Segar Hari Ini', 'Organik'],
     harvestDate: '2025-01-15',
@@ -26,7 +41,7 @@ export const products: Product[] = [
     price: 8000,
     unit: '500g',
     stock: 30,
-    images: ['https://images.unsplash.com/photo-1546470427-0d62b9f43f23?w=400&q=80'],
+    images: [tomatImg],
     description: 'Tomat merah hidroponik dari dataran tinggi Lembang. Manis alami, tanpa pestisida.',
     tags: ['Hidroponik'],
     harvestDate: '2025-01-14',
@@ -42,7 +57,7 @@ export const products: Product[] = [
     price: 3500,
     unit: '250g',
     stock: 40,
-    images: ['https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80'],
+    images: [kangkungImg],
     description: 'Kangkung organik segar, dipanen langsung dari kebun pagi hari.',
     tags: ['Organik'],
     harvestDate: '2025-01-15',
@@ -58,7 +73,7 @@ export const products: Product[] = [
     price: 12000,
     unit: '100g',
     stock: 25,
-    images: ['https://images.unsplash.com/photo-1583119022894-919a68a3d0e3?w=400&q=80'],
+    images: [cabaiRawitImg],
     description: 'Cabai rawit merah pedas dari dataran tinggi Bali. Aroma khas, tingkat kepedasan tinggi.',
     tags: ['Pedas'],
     harvestDate: '2025-01-13',
@@ -74,7 +89,7 @@ export const products: Product[] = [
     price: 15000,
     unit: '500g',
     stock: 20,
-    images: ['https://images.unsplash.com/photo-1547514701-42782101795e?w=400&q=80'],
+    images: [jerukMedanImg],
     description: 'Jeruk manis khas dataran tinggi Karo. Segar, berair, dan kaya vitamin C.',
     tags: ['Best Seller'],
     harvestDate: '2025-01-12',
@@ -90,7 +105,7 @@ export const products: Product[] = [
     price: 6000,
     unit: '250g',
     stock: 35,
-    images: ['https://images.unsplash.com/photo-1598170875084-6ac2e0c49803?w=400&q=80'],
+    images: [wortelBabyImg],
     description: 'Wortel baby segar dari Malino. Manis alami, cocok untuk salad atau jus.',
     tags: ['Segar Hari Ini'],
     harvestDate: '2025-01-15',
@@ -106,7 +121,7 @@ export const products: Product[] = [
     price: 5000,
     unit: '200g',
     stock: 45,
-    images: ['https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=400&q=80'],
+    images: [seladaImg],
     description: 'Selada keriting hidroponik, renyah dan segar. Cocok untuk salad dan lalapan.',
     tags: ['Hidroponik'],
     harvestDate: '2025-01-15',
@@ -122,7 +137,7 @@ export const products: Product[] = [
     price: 8000,
     unit: '100g',
     stock: 30,
-    images: ['https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=400&q=80'],
+    images: [jaheMerahImg],
     description: 'Jahe merah organik dari Bali. Hangat, berkhasiat untuk kesehatan.',
     tags: ['Organik'],
     harvestDate: '2025-01-10',
@@ -138,7 +153,7 @@ export const products: Product[] = [
     price: 18000,
     unit: '500g',
     stock: 15,
-    images: ['https://images.unsplash.com/photo-1604495772376-9657f0035eb5?w=400&q=80'],
+    images: [markisaImg],
     description: 'Markisa ungu dataran tinggi Karo. Asam manis segar, kaya antioksidan.',
     tags: ['Premium'],
     harvestDate: '2025-01-11',
@@ -154,7 +169,7 @@ export const products: Product[] = [
     price: 22000,
     unit: '1kg',
     stock: 25,
-    images: ['https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&q=80'],
+    images: [berasMerahImg],
     description: 'Beras merah varietas lokal Bali dari sistem subak. Pulen, bernutrisi tinggi.',
     tags: ['Lokal'],
     harvestDate: '2025-01-08',
@@ -170,7 +185,7 @@ export const products: Product[] = [
     price: 7000,
     unit: '500g',
     stock: 30,
-    images: ['https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&q=80'],
+    images: [ubiUnguImg],
     description: 'Ubi jalar ungu dari dataran tinggi Malino. Manis alami, kaya serat.',
     tags: ['Segar Hari Ini'],
     harvestDate: '2025-01-14',
@@ -186,7 +201,7 @@ export const products: Product[] = [
     price: 14000,
     unit: '250g',
     stock: 20,
-    images: ['https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=400&q=80'],
+    images: [paprikaImg],
     description: 'Paprika merah hidroponik Lembang. Renyah, manis, kaya vitamin A dan C.',
     tags: ['Hidroponik'],
     harvestDate: '2025-01-14',
@@ -195,19 +210,19 @@ export const products: Product[] = [
   },
   {
     id: 'prod-013',
-    name: 'Paket Sayur Sop',
-    slug: 'paket-sayur-sop',
-    category: 'paket-hemat',
+    name: 'Jagung Manis',
+    slug: 'jagung-manis',
+    category: 'buah-segar',
     farmerId: 'farmer-001',
-    price: 12000,
-    unit: '1 paket',
-    stock: 20,
-    images: ['https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80'],
-    description: 'Paket lengkap wortel, kentang, buncis, daun bawang, dan seledri untuk sayur sop.',
-    tags: ['Hemat'],
+    price: 6000,
+    unit: '2 buah',
+    stock: 30,
+    images: [jagungImg],
+    description: 'Jagung manis segar dari lereng Arjuno. Biji penuh, rasa manis alami, cocok untuk direbus atau dibakar.',
+    tags: ['Segar Hari Ini'],
     harvestDate: '2025-01-15',
-    rating: 4.9,
-    reviewCount: 38,
+    rating: 4.7,
+    reviewCount: 22,
   },
   {
     id: 'prod-014',
@@ -218,7 +233,7 @@ export const products: Product[] = [
     price: 5000,
     unit: '100g',
     stock: 40,
-    images: ['https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=400&q=80'],
+    images: [kunyitImg],
     description: 'Kunyit segar organik dari Bali. Warna cerah, aroma kuat, cocok untuk bumbu dan jamu.',
     tags: ['Organik'],
     harvestDate: '2025-01-10',
