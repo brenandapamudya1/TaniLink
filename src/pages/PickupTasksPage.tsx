@@ -91,7 +91,11 @@ export default function PickupTasksPage() {
                 key={task.id}
                 task={task}
                 onAccept={handleAccept}
-                onClick={(t) => navigate(`/verifikasi-pengambilan/${t.id}`)}
+                onClick={(t) => {
+                  if (t.status === 'baru') {
+                    navigate(`/verifikasi-pengambilan/${t.id}`)
+                  }
+                }}
               />
             ))}
           </div>
