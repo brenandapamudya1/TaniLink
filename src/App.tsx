@@ -25,6 +25,13 @@ import SmartHomePage from '@/pages/SmartHomePage'
 import UploadProdukPage from '@/pages/UploadProdukPage'
 import HargaPasarPage from '@/pages/HargaPasarPage'
 import PetaniOrdersPage from '@/pages/PetaniOrdersPage'
+import DistributorDashboardPage from '@/pages/DistributorDashboardPage'
+import VehicleSelectionPage from '@/pages/VehicleSelectionPage'
+import PickupTasksPage from '@/pages/PickupTasksPage'
+import PickupRoutePage from '@/pages/PickupRoutePage'
+import PickupVerificationPage from '@/pages/PickupVerificationPage'
+import DistributorEarningsPage from '@/pages/DistributorEarningsPage'
+import DistributorHistoryPage from '@/pages/DistributorHistoryPage'
 
 function App() {
   const [showSplash, setShowSplash] = useState(true)
@@ -83,6 +90,63 @@ function App() {
           element={
             <ProtectedRoute requiredUserType="farmer">
               <PetaniOrdersPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard-distributor"
+          element={
+            <ProtectedRoute requiredUserType="distributor">
+              <DistributorDashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pilih-kendaraan"
+          element={
+            <ProtectedRoute requiredUserType="distributor">
+              <VehicleSelectionPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tugas-pengambilan"
+          element={
+            <ProtectedRoute requiredUserType="distributor">
+              <PickupTasksPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/rute-pengambilan"
+          element={
+            <ProtectedRoute requiredUserType="distributor">
+              <PickupRoutePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/verifikasi-pengambilan/:taskId"
+          element={
+            <ProtectedRoute requiredUserType="distributor">
+              <PickupVerificationPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pendapatan-distributor"
+          element={
+            <ProtectedRoute requiredUserType="distributor">
+              <DistributorEarningsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/riwayat-distributor"
+          element={
+            <ProtectedRoute requiredUserType="distributor">
+              <DistributorHistoryPage />
             </ProtectedRoute>
           }
         />

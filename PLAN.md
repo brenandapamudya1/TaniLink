@@ -339,6 +339,82 @@
 
 ---
 
+## Phase M: Distributor/Collection Agent Role 🚚
+
+> **Tujuan:** Menambahkan role ketiga — Distributor/Collection Agent — dengan autentikasi, dashboard, dan 6 fitur operasional lengkap (pilih kendaraan, tugas pengambilan, rute, verifikasi, grading, pendapatan, riwayat performa).
+
+### M1: Auth — Tambah Role Distributor (3 file diubah)
+
+| File | Perubahan |
+|------|-----------|
+| `src/types/auth.ts` | `UserType` → `'buyer' \| 'farmer' \| 'distributor'` |
+| `src/context/AuthContext.tsx` | + Dummy: `distributor@tanilink.id` / `distributor123`, nama "Agus Prasetyo" |
+| `src/pages/LoginPage.tsx` | + Card ketiga Distributor (icon `Truck`), + credentials di demo section, redirect ke `/dashboard-distributor` |
+
+### M2: Types Baru (3 file baru)
+
+| File | Interface |
+|------|-----------|
+| `src/types/vehicle.ts` | `Vehicle`: id, name, capacityLabel, capacityKg, range, suitableFor, fee, status (`'tersedia' \| 'digunakan' \| 'perbaikan'`), icon |
+| `src/types/pickupTask.ts` | `PickupTask`: id, farmerName, farmerLocation, items `{name, qty, unit}[]`, totalWeight, vehicleId, status (`'baru' \| 'diterima' \| 'dalam_perjalanan' \| 'selesai'`), scheduledTime, createdAt |
+| `src/types/distributor.ts` | `DistributorEarning`: period, pickupFee, deliveryFee, performanceBonus, qualityBonus, total. `PickupVerification`: taskId, actualWeight, condition (`'baik' \| 'sedang' \| 'rusak'`), gradeA, gradeB, gradeC, photoUrl, notes |
+
+### M3: Mock Data (3 file baru)
+
+| File | Konten |
+|------|--------|
+| `src/data/vehicles.ts` | 4 kendaraan: Motor (20kg/estimated fee Rp25rb), Mobil (200kg/Rp75rb), Pick-up (1ton/Rp150rb), Truk (>1ton/Rp300rb) |
+| `src/data/pickupTasks.ts` | 5 task: 2 baru (Desa Sukamaju, Desa Cikole), 1 diterima, 1 perjalanan, 1 selesai. Items variatif |
+| `src/data/distributorEarnings.ts` | 6 bulan pendapatan (Jan–Jun 2026) + 5 riwayat transaksi terakhir |
+
+### M4: UI Components (4 file baru)
+
+| File | Deskripsi |
+|------|-----------|
+| `src/components/ui/VehicleCard.tsx` | Card kendaraan: icon (Motorcycle/Car/Truck dari Lucide), kapasitas, range, suitableFor, status badge (hijau/merah/abu), estimasi fee, tombol "Pilih Kendaraan" — outline harvest saat terpilih |
+| `src/components/ui/PickupTaskCard.tsx` | Card tugas: ID badge, lokasi (MapPin), nama petani, daftar item (bullet), total weight, status progress badge. Tombol "Terima Tugas" jika status 'baru' |
+| `src/components/ui/GradingPanel.tsx` | Pre-check grading: 3 input (Grade A/B/C) dengan kg, toggle kondisi (Baik/Sedang/Rusak), tombol "Ambil Foto" (dummy), notes textarea |
+| `src/components/ui/EarningsSummary.tsx` | Ringkasan pendapatan bulan ini: 4 baris breakdown (Pickup/Delivery/Performance/Quality) + total tebal. Masing-masing dengan icon Lucide |
+
+### M5: Pages (7 file baru)
+
+| File | Route | Deskripsi |
+|------|-------|-----------|
+| `src/pages/DistributorDashboardPage.tsx` | `/dashboard-distributor` | 5 stats cards row (Pengambilan Hari Ini, Pengiriman Aktif, Pendapatan, Rating, Tugas Aktif). Quick actions: 3 card shortcut ke fitur utama (Pilih Kendaraan, Tugas Pengambilan, Pendapatan) |
+| `src/pages/VehicleSelectionPage.tsx` | `/pilih-kendaraan` | Grid 2 kolom kendaraan. Pilih → border + ceklis hijau. Tombol "Konfirmasi Kendaraan" sticky bottom. State tersimpan di localStorage |
+| `src/pages/PickupTasksPage.tsx` | `/tugas-pengambilan` | Tab filter: Semua/Baru/Diterima/Selesai. List PickupTaskCard. Tombol "Terima" → alert dummy + update status. Kalau tidak ada tugas → empty state |
+| `src/pages/PickupRoutePage.tsx` | `/rute-pengambilan` | Header "Rute Optimal Hari Ini". Visual: 4 node vertikal (Petani A → B → C → Distribution Hub) dengan garis panah. Info grup: "Grup 1 — 3 petani — 280 kg — Pick-up". Setiap node: nama petani, lokasi, waktu estimasi, item count |
+| `src/pages/PickupVerificationPage.tsx` | `/verifikasi-pengambilan/:taskId` | Step 1: Simulasi QR (kotak besar "Scan QR Petani" → klik pindah ke step). Step 2: Input berat aktual, GradingPanel, kondisi, foto. Step 3: Konfirmasi + tombol "Konfirmasi Pengambilan" |
+| `src/pages/DistributorEarningsPage.tsx` | `/pendapatan-distributor` | EarningsSummary di atas. Riwayat transaksi: list item per pickup dengan fee, bonus, tanggal. Bottom: total pendapatan tahun ini |
+| `src/pages/DistributorHistoryPage.tsx` | `/riwayat-distributor` | 5 metric cards (Rating 4.8, On-Time 96%, Completed 128, Total Km 2.450, Komplain 3). Grafik bar pendapatan 6 bulan terakhir. Tombol "Lihat Detail" → alert |
+
+### M6: Routing & Integrasi (5 file diubah)
+
+| File | Perubahan |
+|------|-----------|
+| `src/App.tsx` | + 7 route distributor semua di-wrap `ProtectedRoute requiredUserType="distributor"` |
+| `src/pages/SmartHomePage.tsx` | + `user?.userType === 'distributor'` → `<DistributorDashboardPage />` |
+| `src/components/layout/BottomTabBar.tsx` | `isActive`: tambah `location.pathname === '/dashboard-distributor'` untuk path `/` saat distributor |
+| `src/pages/ProfilePage.tsx` | + `menuItems.unshift(...)` untuk `userType === 'distributor'` → "Dashboard Distributor" (icon Truck) + "Pendapatan" (icon Wallet) + "Riwayat" (icon Clock). Text id header: "Akun Distributor" |
+
+### M7: Verifikasi
+
+| Step | Command | Expected |
+|------|---------|----------|
+| M7a | `npx tsc -b` | 0 error |
+| M7b | `npm run build` | Build sukses |
+| M7c | Manual: login distributor → dashboard → pilih kendaraan → tugas → rute → verifikasi → pendapatan → riwayat | Semua flow berjalan |
+
+### Ringkasan File Phase M
+
+| Kategori | File |
+|----------|------|
+| **Baru (13)** | `src/types/vehicle.ts`, `src/types/pickupTask.ts`, `src/types/distributor.ts`, `src/data/vehicles.ts`, `src/data/pickupTasks.ts`, `src/data/distributorEarnings.ts`, `src/components/ui/VehicleCard.tsx`, `src/components/ui/PickupTaskCard.tsx`, `src/components/ui/GradingPanel.tsx`, `src/components/ui/EarningsSummary.tsx`, `src/pages/DistributorDashboardPage.tsx`, `src/pages/VehicleSelectionPage.tsx`, `src/pages/PickupTasksPage.tsx`, `src/pages/PickupRoutePage.tsx`, `src/pages/PickupVerificationPage.tsx`, `src/pages/DistributorEarningsPage.tsx`, `src/pages/DistributorHistoryPage.tsx` |
+| **Diubah (7)** | `src/types/auth.ts`, `src/context/AuthContext.tsx`, `src/pages/LoginPage.tsx`, `src/App.tsx`, `src/pages/SmartHomePage.tsx`, `src/components/layout/BottomTabBar.tsx`, `src/pages/ProfilePage.tsx` |
+| **Total** | ~24 file |
+
+---
+
 ## Assets (Placeholder untuk Sekarang)
 
 | File | Lokasi | Status |
@@ -371,6 +447,7 @@ I1-I3  → Verifikasi build ✅
 J1-J10 → Profile menu pages + Wishlist integration ✅
 K1-K7  → Complete Buyer Experience ✅
 L1-L8  → Farmer Dashboard + Login Flow ✅
+M1-M7  → Distributor/Collection Agent Role 🚚 ✅
 ```
 
 ---

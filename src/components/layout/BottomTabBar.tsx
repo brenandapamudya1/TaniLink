@@ -40,6 +40,9 @@ export function BottomTabBar() {
     if (path === '/' && user?.userType === 'farmer') {
       return location.pathname === '/' || location.pathname === '/dashboard-petani'
     }
+    if (path === '/' && user?.userType === 'distributor') {
+      return location.pathname === '/' || location.pathname === '/dashboard-distributor'
+    }
     return location.pathname === path
   }
 

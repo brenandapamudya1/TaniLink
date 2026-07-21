@@ -12,6 +12,10 @@ const DUMMY_BUYERS = [
   { email: 'pembeli@tanilink.id', password: 'pembeli123', name: 'Budi Santoso' },
 ]
 
+const DUMMY_DISTRIBUTORS = [
+  { email: 'distributor@tanilink.id', password: 'distributor123', name: 'Agus Prasetyo', distributorId: 'distributor-001' },
+]
+
 interface AuthProviderProps {
   children: ReactNode
 }
@@ -26,6 +30,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
       )
       if (found) {
         setUser({ email: found.email, name: found.name, userType: 'farmer', farmerId: found.farmerId })
+        return true
+      }
+      return false
+    }
+
+    if (userType === 'distributor') {
+      const found = DUMMY_DISTRIBUTORS.find(
+        (d) => d.email === email && d.password === password
+      )
+      if (found) {
+        setUser({ email: found.email, name: found.name, userType: 'distributor', distributorId: found.distributorId })
         return true
       }
       return false

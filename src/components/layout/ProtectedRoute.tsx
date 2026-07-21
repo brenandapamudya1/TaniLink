@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 
 interface ProtectedRouteProps {
   children: ReactNode
-  requiredUserType?: 'buyer' | 'farmer'
+  requiredUserType?: 'buyer' | 'farmer' | 'distributor'
 }
 
 export function ProtectedRoute({ children, requiredUserType }: ProtectedRouteProps) {

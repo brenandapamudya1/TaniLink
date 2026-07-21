@@ -1,10 +1,11 @@
-export type UserType = 'buyer' | 'farmer'
+export type UserType = 'buyer' | 'farmer' | 'distributor'
 
 export interface AuthUser {
   email: string
   name: string
   userType: UserType
   farmerId?: string
+  distributorId?: string
 }
 
 export interface AuthContextType {

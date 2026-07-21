@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { User, ClipboardList, Heart, MapPin, Bell, Settings, HelpCircle, ChevronRight, Sprout, LogOut } from 'lucide-react'
+import { User, ClipboardList, Heart, MapPin, Bell, Settings, HelpCircle, ChevronRight, Sprout, Truck, DollarSign, Clock, LogOut } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { useAuth } from '@/context/AuthContext'
 
@@ -30,6 +30,14 @@ export default function ProfilePage() {
     menuItems.unshift({ icon: Sprout, label: 'Dashboard Petani', route: '/dashboard-petani' })
   }
 
+  if (isLoggedIn && user?.userType === 'distributor') {
+    menuItems.unshift(
+      { icon: Truck, label: 'Dashboard Distributor', route: '/dashboard-distributor' },
+      { icon: DollarSign, label: 'Pendapatan', route: '/pendapatan-distributor' },
+      { icon: Clock, label: 'Riwayat & Performa', route: '/riwayat-distributor' },
+    )
+  }
+
   return (
     <PageWrapper>
       <div className="bg-soil px-4 py-8">
@@ -46,7 +54,11 @@ export default function ProfilePage() {
           </h1>
           <p className="text-caption text-cream/70 mb-4">
             {isLoggedIn
-              ? user?.userType === 'farmer' ? 'Akun Petani' : 'Akun Pembeli'
+              ? user?.userType === 'farmer'
+                ? 'Akun Petani'
+                : user?.userType === 'distributor'
+                  ? 'Akun Distributor'
+                  : 'Akun Pembeli'
               : 'Masuk untuk pengalaman lengkap'}
           </p>
           {isLoggedIn ? (
