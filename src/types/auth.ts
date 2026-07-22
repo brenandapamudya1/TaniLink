@@ -1,4 +1,4 @@
-export type UserType = 'buyer' | 'farmer' | 'distributor'
+export type UserType = 'buyer' | 'farmer' | 'distributor' | 'b2b'
 
 export interface AuthUser {
   email: string
@@ -6,6 +6,8 @@ export interface AuthUser {
   userType: UserType
   farmerId?: string
   distributorId?: string
+  businessName?: string
+  businessType?: string
 }
 
 export interface AuthContextType {

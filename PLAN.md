@@ -448,8 +448,141 @@ J1-J10 → Profile menu pages + Wishlist integration ✅
 K1-K7  → Complete Buyer Experience ✅
 L1-L8  → Farmer Dashboard + Login Flow ✅
 M1-M7  → Distributor/Collection Agent Role 🚚 ✅
+N1-N9  → B2B / Industri Kuliner Role 🏭 ✅
+O1-O3  → Role-Specific Bottom Tab Bars (Farmer & Distributor) 🌾🚚
 ```
 
 ---
 
 *Dokumen ini sebagai peta eksekusi. Update status di sini seiring progres.*
+
+---
+
+## Phase O: Role-Specific Bottom Tab Bars (Farmer & Distributor) 🌾🚚
+
+> **Tujuan:** Buat tab bar yang berbeda untuk Petani dan Distributor, seperti B2B yang sudah punya `B2BBottomTabBar`. Pembeli tetap pakai `BottomTabBar` yang sekarang.
+
+### O1: Buat FarmerBottomTabBar (1 file baru)
+
+| File | Deskripsi |
+|------|-----------|
+| `src/components/layout/FarmerBottomTabBar.tsx` | 5 tabs: Dashboard (`/dashboard-petani`), Produk (`/upload-produk`), Harga (`/harga-pasar`), Pesanan (`/pesanan-petani`), Profil (`/profil`). Icons: Sprout, Package, TrendingUp, ClipboardList, User |
+
+### O2: Buat DistributorBottomTabBar (1 file baru)
+
+| File | Deskripsi |
+|------|-----------|
+| `src/components/layout/DistributorBottomTabBar.tsx` | 5 tabs: Dashboard (`/dashboard-distributor`), Tugas (`/tugas-pengambilan`), Pendapatan (`/pendapatan-distributor`), Riwayat (`/riwayat-distributor`), Profil (`/profil`). Icons: Truck, ClipboardList, DollarSign, Clock, User |
+
+### O3: Update App.tsx — Conditional render tab bar (1 file diubah)
+
+| File | Perubahan |
+|------|-----------|
+| `src/App.tsx` | Tambah `getTabBar()` helper function. Render: `userType === 'b2b'` → `B2BBottomTabBar`, `userType === 'farmer'` → `FarmerBottomTabBar`, `userType === 'distributor'` → `DistributorBottomTabBar`, default (pembeli) → `BottomTabBar` |
+
+### O4: Verifikasi
+
+| Step | Command | Expected |
+|------|---------|----------|
+| O4a | `npx tsc -b` | 0 error |
+| O4b | `npm run build` | Build sukses |
+| O4c | Manual test: login sebagai petani → tab bar sesuai role | 5 tabs: Dashboard, Produk, Harga, Pesanan, Profil |
+| O4d | Manual test: login sebagai distributor → tab bar sesuai role | 5 tabs: Dashboard, Tugas, Pendapatan, Riwayat, Profil |
+
+### Ringkasan File Phase O
+
+| Kategori | File |
+|----------|------|
+| **Baru (2)** | `src/components/layout/FarmerBottomTabBar.tsx`, `src/components/layout/DistributorBottomTabBar.tsx` |
+| **Diubah (1)** | `src/App.tsx` |
+| **Total** | 3 file |
+
+
+---
+
+## Phase N: B2B / Industri Kuliner Role 🏭
+
+> **Tujuan:** Tambahkan role keempat — B2B / Industri Kuliner — dengan autentikasi, dashboard, dan fitur bulk order, recurring order, kontrak farming, RFQ, invoice, dan analitik bisnis.
+
+### N1: Auth — Tambah Role B2B (3 file diubah)
+
+| File | Perubahan |
+|------|-----------|
+| `src/types/auth.ts` | `UserType` → `'buyer' \| 'farmer' \| 'distributor' \| 'b2b'` |
+| `src/context/AuthContext.tsx` | + Dummy: `b2b@tanilink.id` / `b2b123`, nama "Sari Rasa Restaurant", businessName |
+| `src/pages/LoginPage.tsx` | + Card keempat B2B (icon `Building2`), + credentials di demo section, redirect ke `/dashboard-b2b` |
+
+### N2: Types Baru (1 file baru)
+
+| File | Interface |
+|------|-----------|
+| `src/types/b2b.ts` | `B2BProduct`, `B2BOrder`, `B2BOrderItem`, `RecurringOrder`, `Contract`, `RFQ`, `B2BInvoice`, `B2BAnalytics` |
+
+### N3: Mock Data (5 file baru)
+
+| File | Konten |
+|------|--------|
+| `src/data/b2bProducts.ts` | 12 produk bulk (tomat, sawi, wortel, cabai, kentang, bawang, beras, jeruk, pisang, bayam, jahe, markisa) dengan grade A/B, harga per kg, unit (kg/box/karung/ton) |
+| `src/data/b2bOrders.ts` | 4 order bulk dengan 8-step timeline (dibuat → petani_dikonfirmasi → panen → collection_agent → qc → hub → pengiriman → diterima) |
+| `src/data/b2bContracts.ts` | 3 kontrak aktif + 1 proposed |
+| `src/data/b2bInvoices.ts` | 5 invoice (lunas, tempo, overdue) |
+| `src/data/b2bAnalytics.ts` | 6 bulan spending + top 5 produk + last month change |
+
+### N4: UI Components (5 file baru)
+
+| File | Deskripsi |
+|------|-----------|
+| `src/components/ui/B2BOrderCard.tsx` | Card order dengan 8-step timeline expandable |
+| `src/components/ui/BulkOrderItem.tsx` | Item bulk dengan qty input, unit selector (kg/box/karung/ton), konversi ke kg |
+| `src/components/ui/RecurringOrderCard.tsx` | Card recurring order dengan toggle aktif/nonaktif |
+| `src/components/ui/ContractCard.tsx` | Card kontrak dengan progress bar |
+| `src/components/ui/InvoiceCard.tsx` | Card invoice dengan modal detail + tombol unduh PDF (generate PNG via Canvas API) |
+
+### N5: Pages (8 file baru)
+
+| File | Route | Deskripsi |
+|------|-------|-----------|
+| `src/pages/B2BDashboardPage.tsx` | `/dashboard-b2b` | 4 stats cards + grafik pengeluaran 6 bulan (pixel height bars) + quick actions |
+| `src/pages/B2BBulkOrderPage.tsx` | `/b2b/pesanan-bulk` | Daftar produk dengan filter kategori, qty input, konversi unit ke kg |
+| `src/pages/B2BRecurringOrderPage.tsx` | `/b2b/pesanan-berulang` | List recurring orders dengan toggle aktif/nonaktif |
+| `src/pages/B2BContractFarmingPage.tsx` | `/b2b/kontrak-tani` | List kontrak aktif + proposed |
+| `src/pages/B2BRFQPage.tsx` | `/b2b/rfq` | Form RFQ dengan multiple items |
+| `src/pages/B2BInvoicePage.tsx` | `/b2b/invoice` | List invoice dengan filter status |
+| `src/pages/B2BAnalyticsPage.tsx` | `/b2b/analitik` | Total pengeluaran (card grid), top produk (progress bars), volume per kategori |
+| `src/pages/ContractOffersPage.tsx` | `/kontrak-tawaran` | (Farmer side) List tawaran kontrak dari B2B |
+
+### N6: B2BBottomTabBar (1 file baru)
+
+| File | Deskripsi |
+|------|-----------|
+| `src/components/layout/B2BBottomTabBar.tsx` | 5 tabs: Dashboard (`/dashboard-b2b`), Pesanan (`/b2b/lacak-pesanan`), Bulk (`/b2b/pesanan-bulk`), Analitik (`/b2b/analitik`), Profil (`/profil`). Icons: Home, ClipboardList, ShoppingBag, TrendingUp, User |
+
+### N7: Navbar Context-Aware (1 file diubah)
+
+| File | Perubahan |
+|------|-----------|
+| `src/components/layout/Navbar.tsx` | B2B: tampilkan businessName + chat icon. Non-B2B: tetap "Masuk" + cart icon |
+
+### N8: Integrasi (2 file diubah)
+
+| File | Perubahan |
+|------|-----------|
+| `src/App.tsx` | + 8 B2B routes semua di-wrap `ProtectedRoute requiredUserType="b2b"` + conditional BottomTabBar (B2B vs non-B2B) |
+| `src/pages/ProfilePage.tsx` | + Menu items untuk B2B: Dashboard B2B, Pesanan Bulk, Pesanan Berulang, Invoice |
+
+### N9: Verifikasi
+
+| Step | Command | Expected |
+|------|---------|----------|
+| N9a | `npx tsc -b` | 0 error |
+| N9b | `npm run build` | Build sukses |
+| N9c | Manual: login B2B → dashboard → bulk order → recurring → kontrak → RFQ → invoice → analitik | Semua flow berjalan |
+
+### Ringkasan File Phase N
+
+| Kategori | File |
+|----------|------|
+| **Baru (19)** | `src/types/b2b.ts`, `src/data/b2bProducts.ts`, `src/data/b2bOrders.ts`, `src/data/b2bContracts.ts`, `src/data/b2bInvoices.ts`, `src/data/b2bAnalytics.ts`, `src/components/ui/B2BOrderCard.tsx`, `src/components/ui/BulkOrderItem.tsx`, `src/components/ui/RecurringOrderCard.tsx`, `src/components/ui/ContractCard.tsx`, `src/components/ui/InvoiceCard.tsx`, `src/pages/B2BDashboardPage.tsx`, `src/pages/B2BBulkOrderPage.tsx`, `src/pages/B2BRecurringOrderPage.tsx`, `src/pages/B2BContractFarmingPage.tsx`, `src/pages/B2BRFQPage.tsx`, `src/pages/B2BInvoicePage.tsx`, `src/pages/B2BAnalyticsPage.tsx`, `src/pages/ContractOffersPage.tsx`, `src/components/layout/B2BBottomTabBar.tsx` |
+| **Diubah (5)** | `src/types/auth.ts`, `src/context/AuthContext.tsx`, `src/pages/LoginPage.tsx`, `src/App.tsx`, `src/pages/ProfilePage.tsx`, `src/components/layout/Navbar.tsx` |
+| **Total** | ~25 file |
+

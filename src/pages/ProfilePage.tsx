@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { User, ClipboardList, Heart, MapPin, Bell, Settings, HelpCircle, ChevronRight, Sprout, Truck, DollarSign, Clock, LogOut } from 'lucide-react'
+import { User, ClipboardList, Heart, MapPin, Bell, Settings, HelpCircle, ChevronRight, Sprout, Truck, DollarSign, Clock, LogOut, ShoppingBag, TrendingUp, FileText } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { useAuth } from '@/context/AuthContext'
 
@@ -17,26 +17,52 @@ export default function ProfilePage() {
     navigate('/login')
   }
 
-  const menuItems: MenuItem[] = [
-    { icon: ClipboardList, label: 'Pesanan Saya', route: '/pesanan' },
-    { icon: Heart, label: 'Wishlist', route: '/wishlist' },
+  const getRoleLabel = () => {
+    if (!isLoggedIn) return 'Masuk untuk pengalaman lengkap'
+    switch (user?.userType) {
+      case 'farmer': return 'Akun Petani'
+      case 'distributor': return 'Akun Distributor'
+      case 'b2b': return 'Akun Bisnis'
+      default: return 'Akun Pembeli'
+    }
+  }
+
+  const menuItems: MenuItem[] = []
+
+  if (isLoggedIn) {
+    switch (user?.userType) {
+      case 'farmer':
+        menuItems.push({ icon: Sprout, label: 'Dashboard Petani', route: '/dashboard-petani' })
+        break
+      case 'distributor':
+        menuItems.push(
+          { icon: Truck, label: 'Dashboard Distributor', route: '/dashboard-distributor' },
+          { icon: DollarSign, label: 'Pendapatan', route: '/pendapatan-distributor' },
+          { icon: Clock, label: 'Riwayat & Performa', route: '/riwayat-distributor' },
+        )
+        break
+      case 'b2b':
+        menuItems.push(
+          { icon: TrendingUp, label: 'Dashboard B2B', route: '/dashboard-b2b' },
+          { icon: ClipboardList, label: 'Pesanan Bulk', route: '/b2b/lacak-pesanan' },
+          { icon: ShoppingBag, label: 'Pesanan Berulang', route: '/b2b/pesanan-berulang' },
+          { icon: FileText, label: 'Invoice', route: '/b2b/invoice' },
+        )
+        break
+      default:
+        menuItems.push(
+          { icon: ClipboardList, label: 'Pesanan Saya', route: '/pesanan' },
+          { icon: Heart, label: 'Wishlist', route: '/wishlist' },
+        )
+    }
+  }
+
+  menuItems.push(
     { icon: MapPin, label: 'Alamat Pengiriman', route: '/alamat' },
     { icon: Bell, label: 'Notifikasi', route: '/notifikasi' },
     { icon: Settings, label: 'Pengaturan', route: '/pengaturan' },
     { icon: HelpCircle, label: 'Bantuan', route: '/bantuan' },
-  ]
-
-  if (isLoggedIn && user?.userType === 'farmer') {
-    menuItems.unshift({ icon: Sprout, label: 'Dashboard Petani', route: '/dashboard-petani' })
-  }
-
-  if (isLoggedIn && user?.userType === 'distributor') {
-    menuItems.unshift(
-      { icon: Truck, label: 'Dashboard Distributor', route: '/dashboard-distributor' },
-      { icon: DollarSign, label: 'Pendapatan', route: '/pendapatan-distributor' },
-      { icon: Clock, label: 'Riwayat & Performa', route: '/riwayat-distributor' },
-    )
-  }
+  )
 
   return (
     <PageWrapper>
@@ -52,15 +78,7 @@ export default function ProfilePage() {
           <h1 className="font-display text-section text-cream mb-1">
             {isLoggedIn ? user?.name ?? 'User' : 'Tamu'}
           </h1>
-          <p className="text-caption text-cream/70 mb-4">
-            {isLoggedIn
-              ? user?.userType === 'farmer'
-                ? 'Akun Petani'
-                : user?.userType === 'distributor'
-                  ? 'Akun Distributor'
-                  : 'Akun Pembeli'
-              : 'Masuk untuk pengalaman lengkap'}
-          </p>
+          <p className="text-caption text-cream/70 mb-4">{getRoleLabel()}</p>
           {isLoggedIn ? (
             <button
               onClick={() => { logout(); navigate('/') }}

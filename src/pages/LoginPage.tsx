@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, User, Sprout, Truck, Mail, Lock, Eye, EyeOff } from 'lucide-react'
+import { ArrowLeft, User, Sprout, Truck, Building2, Mail, Lock, Eye, EyeOff } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { useAuth } from '@/context/AuthContext'
 import type { UserType } from '@/types/auth'
@@ -24,6 +24,8 @@ export default function LoginPage() {
         navigate('/dashboard-petani')
       } else if (userType === 'distributor') {
         navigate('/dashboard-distributor')
+      } else if (userType === 'b2b') {
+        navigate('/dashboard-b2b')
       } else {
         navigate('/')
       }
@@ -50,7 +52,7 @@ export default function LoginPage() {
 
           <div className="bg-fog rounded-lg shadow-card p-4 mb-6">
           <p className="text-caption text-earth font-semibold mb-3">Masuk sebagai:</p>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => setUserType('buyer')}
               className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-colors ${
@@ -122,6 +124,30 @@ export default function LoginPage() {
                 Antar hasil panen ke Hub
               </span>
             </button>
+
+            <button
+              onClick={() => setUserType('b2b')}
+              className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-colors ${
+                userType === 'b2b'
+                  ? 'border-harvest bg-harvest/5'
+                  : 'border-cream hover:border-harvest/50'
+              }`}
+            >
+              <Building2
+                size={32}
+                className={userType === 'b2b' ? 'text-harvest' : 'text-earth'}
+              />
+              <span
+                className={`text-sm font-semibold ${
+                  userType === 'b2b' ? 'text-soil' : 'text-earth'
+                }`}
+              >
+                B2B
+              </span>
+              <span className="text-caption text-earth text-center">
+                Belanja bahan baku bisnis
+              </span>
+            </button>
           </div>
         </div>
 
@@ -137,7 +163,7 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder={userType === 'buyer' ? 'pembeli@tanilink.id' : userType === 'farmer' ? 'petani@tanilink.id' : 'distributor@tanilink.id'}
+                placeholder={userType === 'buyer' ? 'pembeli@tanilink.id' : userType === 'farmer' ? 'petani@tanilink.id' : userType === 'distributor' ? 'distributor@tanilink.id' : 'b2b@tanilink.id'}
                 className="w-full pl-11 pr-4 py-3 rounded-lg border border-cream focus:border-harvest focus:outline-none text-soil placeholder:text-earth/50"
               />
             </div>
@@ -191,6 +217,11 @@ export default function LoginPage() {
             <div className="space-y-1">
               <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">distributor@tanilink.id</span></p>
               <p className="text-caption text-soil">Password: <span className="font-mono font-semibold">distributor123</span></p>
+            </div>
+          ) : userType === 'b2b' ? (
+            <div className="space-y-1">
+              <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">b2b@tanilink.id</span></p>
+              <p className="text-caption text-soil">Password: <span className="font-mono font-semibold">b2b123</span></p>
             </div>
           ) : (
             <div className="space-y-1">

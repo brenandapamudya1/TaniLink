@@ -2,8 +2,12 @@ import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Navbar } from '@/components/layout/Navbar'
 import { BottomTabBar } from '@/components/layout/BottomTabBar'
+import { B2BBottomTabBar } from '@/components/layout/B2BBottomTabBar'
+import { FarmerBottomTabBar } from '@/components/layout/FarmerBottomTabBar'
+import { DistributorBottomTabBar } from '@/components/layout/DistributorBottomTabBar'
 import { SplashScreen } from '@/components/ui/SplashScreen'
 import { ProtectedRoute } from '@/components/layout/ProtectedRoute'
+import { useAuth } from '@/context/AuthContext'
 import ProductListPage from '@/pages/ProductListPage'
 import ProductDetailPage from '@/pages/ProductDetailPage'
 import FarmerListPage from '@/pages/FarmerListPage'
@@ -32,9 +36,32 @@ import PickupRoutePage from '@/pages/PickupRoutePage'
 import PickupVerificationPage from '@/pages/PickupVerificationPage'
 import DistributorEarningsPage from '@/pages/DistributorEarningsPage'
 import DistributorHistoryPage from '@/pages/DistributorHistoryPage'
+import B2BDashboardPage from '@/pages/B2BDashboardPage'
+import B2BBulkOrderPage from '@/pages/B2BBulkOrderPage'
+import B2BRecurringOrderPage from '@/pages/B2BRecurringOrderPage'
+import B2BContractFarmingPage from '@/pages/B2BContractFarmingPage'
+import B2BRFQPage from '@/pages/B2BRFQPage'
+import B2BInvoicePage from '@/pages/B2BInvoicePage'
+import B2BOrderTrackingPage from '@/pages/B2BOrderTrackingPage'
+import B2BAnalyticsPage from '@/pages/B2BAnalyticsPage'
+import ContractOffersPage from '@/pages/ContractOffersPage'
+
+function getBottomTabBar(userType: string | undefined) {
+  switch (userType) {
+    case 'b2b':
+      return <B2BBottomTabBar />
+    case 'farmer':
+      return <FarmerBottomTabBar />
+    case 'distributor':
+      return <DistributorBottomTabBar />
+    default:
+      return <BottomTabBar />
+  }
+}
 
 function App() {
   const [showSplash, setShowSplash] = useState(true)
+  const { user } = useAuth()
 
   if (showSplash) {
     return <SplashScreen onFinish={() => setShowSplash(false)} />
@@ -90,6 +117,14 @@ function App() {
           element={
             <ProtectedRoute requiredUserType="farmer">
               <PetaniOrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/kontrak-tawaran"
+          element={
+            <ProtectedRoute requiredUserType="farmer">
+              <ContractOffersPage />
             </ProtectedRoute>
           }
         />
@@ -150,8 +185,73 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/dashboard-b2b"
+          element={
+            <ProtectedRoute requiredUserType="b2b">
+              <B2BDashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/b2b/pesanan-bulk"
+          element={
+            <ProtectedRoute requiredUserType="b2b">
+              <B2BBulkOrderPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/b2b/pesanan-berulang"
+          element={
+            <ProtectedRoute requiredUserType="b2b">
+              <B2BRecurringOrderPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/b2b/kontrak-tani"
+          element={
+            <ProtectedRoute requiredUserType="b2b">
+              <B2BContractFarmingPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/b2b/rfq"
+          element={
+            <ProtectedRoute requiredUserType="b2b">
+              <B2BRFQPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/b2b/lacak-pesanan"
+          element={
+            <ProtectedRoute requiredUserType="b2b">
+              <B2BOrderTrackingPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/b2b/invoice"
+          element={
+            <ProtectedRoute requiredUserType="b2b">
+              <B2BInvoicePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/b2b/analitik"
+          element={
+            <ProtectedRoute requiredUserType="b2b">
+              <B2BAnalyticsPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-      <BottomTabBar />
+      {getBottomTabBar(user?.userType)}
     </div>
   )
 }

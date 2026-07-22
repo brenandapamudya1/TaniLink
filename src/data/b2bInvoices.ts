@@ -1,0 +1,77 @@
+import type { B2BInvoice } from '@/types/b2b'
+
+export const b2bInvoices: B2BInvoice[] = [
+  {
+    id: 'inv-001',
+    number: 'PH-2026-0123',
+    date: '2026-07-20',
+    items: [
+      { productId: 'b2b-jeruk', productName: 'Jeruk Medan Grade A', quantity: 10, unit: 'box', pricePerKg: 25000, subtotal: 5000000 },
+      { productId: 'b2b-pisang', productName: 'Pisang Cavendish Grade A', quantity: 8, unit: 'box', pricePerKg: 15000, subtotal: 2400000 },
+    ],
+    subtotal: 7400000,
+    tax: 740000,
+    total: 8140000,
+    dueDate: '2026-08-03',
+    status: 'tempo',
+    orderRef: 'B2B-004',
+  },
+  {
+    id: 'inv-002',
+    number: 'PH-2026-0122',
+    date: '2026-07-18',
+    items: [
+      { productId: 'b2b-tomat', productName: 'Tomat Merah Grade A', quantity: 200, unit: 'kg', pricePerKg: 12000, subtotal: 2400000 },
+    ],
+    subtotal: 2400000,
+    tax: 240000,
+    total: 2640000,
+    dueDate: '2026-08-01',
+    status: 'tempo',
+    orderRef: 'B2B-003',
+  },
+  {
+    id: 'inv-003',
+    number: 'PH-2026-0121',
+    date: '2026-07-15',
+    items: [
+      { productId: 'b2b-tomat', productName: 'Tomat Merah Grade A', quantity: 300, unit: 'kg', pricePerKg: 12000, subtotal: 3600000 },
+      { productId: 'b2b-sawi', productName: 'Sawi Hijau Grade A', quantity: 100, unit: 'kg', pricePerKg: 8000, subtotal: 800000 },
+    ],
+    subtotal: 4400000,
+    tax: 440000,
+    total: 4840000,
+    dueDate: '2026-07-29',
+    status: 'tempo',
+    orderRef: 'B2B-001',
+  },
+  {
+    id: 'inv-004',
+    number: 'PH-2026-0120',
+    date: '2026-07-10',
+    items: [
+      { productId: 'b2b-wortel', productName: 'Wortel Baby Grade A', quantity: 150, unit: 'kg', pricePerKg: 15000, subtotal: 2250000 },
+    ],
+    subtotal: 2250000,
+    tax: 225000,
+    total: 2475000,
+    dueDate: '2026-07-24',
+    status: 'lunas',
+    orderRef: 'B2B-002',
+  },
+  {
+    id: 'inv-005',
+    number: 'PH-2026-0119',
+    date: '2026-06-28',
+    items: [
+      { productId: 'b2b-cabai', productName: 'Cabai Rawit Grade A', quantity: 50, unit: 'kg', pricePerKg: 45000, subtotal: 2250000 },
+      { productId: 'b2b-bawang', productName: 'Bawang Merah Grade A', quantity: 30, unit: 'kg', pricePerKg: 35000, subtotal: 1050000 },
+    ],
+    subtotal: 3300000,
+    tax: 330000,
+    total: 3630000,
+    dueDate: '2026-07-12',
+    status: 'overdue',
+    orderRef: 'B2B-005',
+  },
+]
