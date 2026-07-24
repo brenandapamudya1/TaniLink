@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, MapPin, CheckCircle2, Star, Calendar, Package } from 'lucide-react'
+import { ArrowLeft, MapPin, CheckCircle2, Star, Calendar, Package, MessageCircle } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { ProductCard } from '@/components/ui/ProductCard'
 import { useCart } from '@/context/CartContext'
@@ -94,6 +94,14 @@ export default function FarmerDetailPage() {
       <div className="px-4 py-6">
         <h2 className="font-semibold text-soil text-base mb-3">Tentang</h2>
         <p className="text-body text-earth leading-relaxed">{farmer.bio}</p>
+
+        <button
+          onClick={() => navigate(`/inbox/${farmer.id}`)}
+          className="mt-4 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-pill bg-harvest text-soil font-semibold text-sm hover:bg-harvest/90 transition-colors"
+        >
+          <MessageCircle size={18} />
+          Kontak Petani
+        </button>
       </div>
 
       <div className="px-4 pb-4">

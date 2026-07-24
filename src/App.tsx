@@ -6,6 +6,8 @@ import { B2BBottomTabBar } from '@/components/layout/B2BBottomTabBar'
 import { FarmerBottomTabBar } from '@/components/layout/FarmerBottomTabBar'
 import { DistributorBottomTabBar } from '@/components/layout/DistributorBottomTabBar'
 import ChatPage from '@/pages/ChatPage'
+import InboxPage from '@/pages/InboxPage'
+import ConversationPage from '@/pages/ConversationPage'
 import { SplashScreen } from '@/components/ui/SplashScreen'
 import { ProtectedRoute } from '@/components/layout/ProtectedRoute'
 import { useAuth } from '@/context/AuthContext'
@@ -88,6 +90,8 @@ function App() {
         <Route path="/pengaturan" element={<PengaturanPage />} />
         <Route path="/bantuan" element={<BantuanPage />} />
         <Route path="/chat" element={<ChatPage />} />
+        <Route path="/inbox" element={<ProtectedRoute><InboxPage /></ProtectedRoute>} />
+        <Route path="/inbox/:id" element={<ProtectedRoute><ConversationPage /></ProtectedRoute>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/tentang" element={<AboutPage />} />
         <Route

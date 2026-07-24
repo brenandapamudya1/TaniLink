@@ -1,9 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { ShoppingCart, Trash2, Minus, Plus } from 'lucide-react'
+import { Trash2, Minus, Plus } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { Button } from '@/components/ui/Button'
 import { useCart } from '@/context/CartContext'
 import { formatPrice } from '@/utils/formatPrice'
+import maskotSad from '@/assets/mascot/maskot-sad.png'
 
 export default function CartPage() {
   const navigate = useNavigate()
@@ -13,7 +14,7 @@ export default function CartPage() {
     return (
       <PageWrapper>
         <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
-          <ShoppingCart size={64} className="text-earth/30 mb-4" />
+          <img src={maskotSad} alt="" className="w-24 h-24 object-contain mb-4" />
           <h1 className="font-display text-title text-soil mb-2">Keranjang Belanja</h1>
           <p className="text-body text-soil font-semibold">Keranjangmu masih kosong</p>
           <p className="text-caption text-earth mt-2 text-center">

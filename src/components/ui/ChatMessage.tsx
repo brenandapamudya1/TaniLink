@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import { ChatProductCard } from '@/components/ui/ChatProductCard'
 import { ChatQuickReplies } from '@/components/ui/ChatQuickReplies'
 import type { ChatMessage as ChatMessageType } from '@/types/chat'
+import maskotHappy from '@/assets/mascot/maskot-happy.png'
+import maskotConfused from '@/assets/mascot/maskot-confused.png'
 
 interface ChatMessageProps {
   message: ChatMessageType
@@ -10,10 +12,18 @@ interface ChatMessageProps {
 
 export function ChatMessage({ message, onQuickReply }: ChatMessageProps) {
   const isBot = message.sender === 'bot'
+  const isError = isBot && message.text.startsWith('Maaf')
 
   return (
-    <div className={`flex ${isBot ? 'justify-start' : 'justify-end'} mb-3`}>
-      <div className={`max-w-[85%] ${isBot ? 'order-1' : 'order-1'}`}>
+    <div className={`flex ${isBot ? 'justify-start' : 'justify-end'} mb-3 items-end gap-2`}>
+      {isBot && (
+        <img
+          src={isError ? maskotConfused : maskotHappy}
+          alt=""
+          className="w-7 h-7 rounded-full object-cover flex-shrink-0"
+        />
+      )}
+      <div className={`max-w-[85%]`}>
         <div
           className={`px-3 py-2 rounded-2xl text-sm leading-relaxed whitespace-pre-line ${
             isBot

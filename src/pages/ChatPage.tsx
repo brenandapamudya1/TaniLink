@@ -5,6 +5,7 @@ import { PageWrapper } from '@/components/layout/PageWrapper'
 import { ChatMessage, TypingIndicator } from '@/components/ui/ChatMessage'
 import { sendMessage, getFallbackResponse } from '@/services/geminiService'
 import type { ChatMessage as ChatMessageType } from '@/types/chat'
+import maskotFlat from '@/assets/mascot/maskot-flat.png'
 
 const WELCOME_MESSAGE: ChatMessageType = {
   id: 'welcome',
@@ -114,9 +115,11 @@ export default function ChatPage() {
           <ArrowLeft size={20} className="text-soil" />
         </button>
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-harvest/20 flex items-center justify-center">
-            <Send size={14} className="text-harvest" />
-          </div>
+          <img
+            src={maskotFlat}
+            alt="Kak Brenanda"
+            className="w-8 h-8 rounded-full object-cover object-top"
+          />
           <div>
             <h1 className="font-display text-section text-soil leading-tight">Kak Brenanda</h1>
             <p className="text-[10px] text-leaf font-medium">Online</p>

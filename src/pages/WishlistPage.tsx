@@ -1,12 +1,13 @@
 import { useMemo } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Heart, ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { ProductCard } from '@/components/ui/ProductCard'
 import { Button } from '@/components/ui/Button'
 import { useWishlist } from '@/context/WishlistContext'
 import { useCart } from '@/context/CartContext'
 import { products } from '@/data/products'
+import maskotSad from '@/assets/mascot/maskot-sad.png'
 
 export default function WishlistPage() {
   const navigate = useNavigate()
@@ -41,7 +42,7 @@ export default function WishlistPage() {
       <div className="px-4 py-6">
         {wishlistProducts.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16">
-            <Heart size={64} className="text-earth/30 mb-4" />
+            <img src={maskotSad} alt="" className="w-24 h-24 object-contain mb-4" />
             <p className="text-body text-soil font-semibold">Belum ada produk di wishlist</p>
             <p className="text-caption text-earth mt-2 text-center">
               Tap ikon hati di produk yang kamu suka untuk menyimpannya di sini.

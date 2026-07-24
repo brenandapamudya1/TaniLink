@@ -1,10 +1,12 @@
 import { useState, useMemo } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Package, ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { Button } from '@/components/ui/Button'
 import { OrderCard } from '@/components/ui/OrderCard'
 import { orders } from '@/data/orders'
+import maskotSad from '@/assets/mascot/maskot-sad.png'
+import maskotDeliver from '@/assets/mascot/maskot-deliver.png'
 
 type OrderTab = 'all' | 'dipanen' | 'perjalanan' | 'selesai'
 
@@ -35,6 +37,7 @@ export default function OrdersPage() {
           <ArrowLeft size={20} className="text-soil" />
         </button>
         <h1 className="font-display text-section text-soil">Pesanan Saya</h1>
+        <img src={maskotDeliver} alt="" className="w-8 h-8 object-contain ml-auto opacity-70" />
       </div>
 
       <div className="px-4 py-6">
@@ -57,7 +60,7 @@ export default function OrdersPage() {
 
         {filteredOrders.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16">
-            <Package size={64} className="text-earth/30 mb-4" />
+            <img src={maskotSad} alt="" className="w-24 h-24 object-contain mb-4" />
             <p className="text-body text-soil font-semibold">Belum ada pesanan</p>
             <p className="text-caption text-earth mt-2 text-center">
               Mulai belanja dan pesananmu akan muncul di sini.

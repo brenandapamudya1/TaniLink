@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { ShoppingCart, Bot, User } from 'lucide-react'
+import { ShoppingCart, Bot, User, MessageCircle } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
 import { useAuth } from '@/context/AuthContext'
 
@@ -37,6 +37,12 @@ export function Navbar() {
       </Link>
 
       <div className="flex items-center gap-3">
+        {user && (
+          <Link to="/inbox" aria-label="Pesan">
+            <MessageCircle size={22} className="text-soil hover:text-harvest transition-colors" />
+          </Link>
+        )}
+
         <Link to="/chat" aria-label="Chat Kak Brenanda">
           <Bot size={22} className="text-soil hover:text-harvest transition-colors" />
         </Link>

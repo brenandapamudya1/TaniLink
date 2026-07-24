@@ -1,0 +1,88 @@
+import type { Conversation } from '@/types/message'
+
+export const conversations: Conversation[] = [
+  {
+    id: 'conv-001',
+    participantIds: ['pembeli@tanilink.id', 'petani@tanilink.id'],
+    participant: {
+      id: 'farmer-001',
+      name: 'Pak Amin Suryadi',
+      avatar: 'icon:user-circle',
+      userType: 'farmer',
+    },
+    lastMessage: 'Baik, nanti saya siapkan ya',
+    lastMessageTime: '10:32',
+    unreadCount: 2,
+    lastMessageIsImage: false,
+  },
+  {
+    id: 'conv-002',
+    participantIds: ['pembeli@tanilink.id', 'petani@tanilink.id'],
+    participant: {
+      id: 'farmer-002',
+      name: 'Bu Sari Dewi',
+      avatar: 'icon:user-circle',
+      userType: 'farmer',
+    },
+    lastMessage: 'Ini foto tomat cherry panen hari ini',
+    lastMessageTime: 'Kemarin',
+    unreadCount: 0,
+    lastMessageIsImage: true,
+  },
+  {
+    id: 'conv-003',
+    participantIds: ['petani@tanilink.id', 'distributor@tanilink.id'],
+    participant: {
+      id: 'distributor-001',
+      name: 'Agus Logistics',
+      avatar: 'icon:user-circle',
+      userType: 'distributor',
+    },
+    lastMessage: 'Baik, jadwal pengambilan hari Kamis jam 8 pagi',
+    lastMessageTime: 'Kemarin',
+    unreadCount: 1,
+    lastMessageIsImage: false,
+  },
+  {
+    id: 'conv-004',
+    participantIds: ['pembeli@tanilink.id', 'petani@tanilink.id'],
+    participant: {
+      id: 'farmer-005',
+      name: 'Bu Hasnah Rahman',
+      avatar: 'icon:user-circle',
+      userType: 'farmer',
+    },
+    lastMessage: 'Untuk ubi ungu sedang panen raya, stok banyak',
+    lastMessageTime: 'Senin',
+    unreadCount: 0,
+    lastMessageIsImage: false,
+  },
+  {
+    id: 'conv-005',
+    participantIds: ['pembeli@tanilink.id', 'petani@tanilink.id'],
+    participant: {
+      id: 'farmer-003',
+      name: 'Pak Wayan Putra',
+      avatar: 'icon:user-circle',
+      userType: 'farmer',
+    },
+    lastMessage: 'Foto kemasan beras merah terbaru',
+    lastMessageTime: 'Minggu',
+    unreadCount: 0,
+    lastMessageIsImage: true,
+  },
+  {
+    id: 'conv-006',
+    participantIds: ['b2b@tanilink.id', 'pembeli@tanilink.id'],
+    participant: {
+      id: 'b2b-001',
+      name: 'Warung Sehat Group',
+      avatar: 'icon:user-circle',
+      userType: 'b2b',
+    },
+    lastMessage: 'Konfirmasi, pesanan 50 kg tomat akan dikirim besok',
+    lastMessageTime: 'Sabtu',
+    unreadCount: 0,
+    lastMessageIsImage: false,
+  },
+]

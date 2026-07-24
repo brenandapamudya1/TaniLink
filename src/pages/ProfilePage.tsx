@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { User, ClipboardList, Heart, MapPin, Bell, Settings, HelpCircle, ChevronRight, Sprout, Truck, DollarSign, Clock, LogOut, ShoppingBag, TrendingUp, FileText } from 'lucide-react'
+import { User, ClipboardList, Heart, MapPin, Bell, Settings, HelpCircle, ChevronRight, Sprout, Truck, DollarSign, Clock, LogOut, ShoppingBag, TrendingUp, FileText, MessageCircle } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { useAuth } from '@/context/AuthContext'
 
@@ -30,6 +30,8 @@ export default function ProfilePage() {
   const menuItems: MenuItem[] = []
 
   if (isLoggedIn) {
+    menuItems.push({ icon: MessageCircle, label: 'Pesan', route: '/inbox' })
+
     switch (user?.userType) {
       case 'farmer':
         menuItems.push({ icon: Sprout, label: 'Dashboard Petani', route: '/dashboard-petani' })
