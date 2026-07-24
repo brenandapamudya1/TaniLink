@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { ShoppingCart, MessageCircle, User } from 'lucide-react'
+import { ShoppingCart, Bot, User } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
 import { useAuth } from '@/context/AuthContext'
 
@@ -18,6 +18,7 @@ export function Navbar() {
   }, [])
 
   const isB2B = user?.userType === 'b2b'
+  const isFarmerOrDistributor = user?.userType === 'farmer' || user?.userType === 'distributor'
 
   return (
     <nav
@@ -36,32 +37,33 @@ export function Navbar() {
       </Link>
 
       <div className="flex items-center gap-3">
+        <Link to="/chat" aria-label="Chat Kak Brenanda">
+          <Bot size={22} className="text-soil hover:text-harvest transition-colors" />
+        </Link>
+
         {isB2B ? (
-          <>
-            <Link
-              to="/profil"
-              className="flex items-center gap-2 px-3 py-1.5 rounded-pill bg-harvest/10 text-harvest font-semibold text-sm hover:bg-harvest/20 transition-colors"
-            >
-              <User size={16} />
-              <span className="max-w-[100px] truncate">{user?.businessName || user?.name}</span>
-            </Link>
-            <Link to="/profil" className="relative" aria-label="Pesan">
-              <MessageCircle size={22} className="text-soil" />
-            </Link>
-          </>
+          <Link
+            to="/profil"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-pill bg-harvest/10 text-harvest font-semibold text-sm hover:bg-harvest/20 transition-colors"
+          >
+            <User size={16} />
+            <span className="max-w-[100px] truncate">{user?.businessName || user?.name}</span>
+          </Link>
         ) : (
           <>
             <Link to="/login" className="text-sm font-semibold text-soil hover:text-harvest transition-colors">
               Masuk
             </Link>
-            <Link to="/keranjang" className="relative" aria-label="Keranjang belanja">
-              <ShoppingCart size={22} className="text-soil" />
-              {totalItems > 0 && (
-                <span className="absolute -top-1.5 -right-2 min-w-[18px] h-[18px] rounded-full bg-harvest text-soil text-[10px] font-bold flex items-center justify-center px-1">
-                  {totalItems}
-                </span>
-              )}
-            </Link>
+            {!isFarmerOrDistributor && (
+              <Link to="/keranjang" className="relative" aria-label="Keranjang belanja">
+                <ShoppingCart size={22} className="text-soil" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1.5 -right-2 min-w-[18px] h-[18px] rounded-full bg-harvest text-soil text-[10px] font-bold flex items-center justify-center px-1">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+            )}
           </>
         )}
       </div>

@@ -5,6 +5,7 @@ import { BottomTabBar } from '@/components/layout/BottomTabBar'
 import { B2BBottomTabBar } from '@/components/layout/B2BBottomTabBar'
 import { FarmerBottomTabBar } from '@/components/layout/FarmerBottomTabBar'
 import { DistributorBottomTabBar } from '@/components/layout/DistributorBottomTabBar'
+import ChatPage from '@/pages/ChatPage'
 import { SplashScreen } from '@/components/ui/SplashScreen'
 import { ProtectedRoute } from '@/components/layout/ProtectedRoute'
 import { useAuth } from '@/context/AuthContext'
@@ -86,6 +87,7 @@ function App() {
         <Route path="/notifikasi" element={<NotifikasiPage />} />
         <Route path="/pengaturan" element={<PengaturanPage />} />
         <Route path="/bantuan" element={<BantuanPage />} />
+        <Route path="/chat" element={<ChatPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/tentang" element={<AboutPage />} />
         <Route
