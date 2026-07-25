@@ -30,12 +30,12 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
       <div className="flex flex-col items-center gap-4">
         <img
           src="/main_logo_trans.png"
-          alt="TaniLink"
+          alt="Nexira"
           className="w-32 h-32 object-contain"
         />
         <div className="flex flex-col items-center gap-1">
           <h1 className="font-display text-2xl text-cream font-bold">
-            TaniLink
+            Nexira
           </h1>
           <p className="text-caption text-cream/70">
             Dari kebun langsung ke tanganmu

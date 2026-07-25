@@ -47,7 +47,7 @@ export default function LoginPage() {
 
         <h1 className="font-display text-title text-soil mb-2">Masuk</h1>
         <p className="text-body text-earth mb-6">
-          Masuk ke akun TaniLink kamu
+          Masuk ke akun Nexira kamu
         </p>
 
           <div className="bg-fog rounded-lg shadow-card p-4 mb-6">
@@ -163,7 +163,7 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder={userType === 'buyer' ? 'pembeli@tanilink.id' : userType === 'farmer' ? 'petani@tanilink.id' : userType === 'distributor' ? 'distributor@tanilink.id' : 'b2b@tanilink.id'}
+                placeholder={userType === 'buyer' ? 'pembeli@nexira.id' : userType === 'farmer' ? 'petani@nexira.id' : userType === 'distributor' ? 'distributor@nexira.id' : 'b2b@nexira.id'}
                 className="w-full pl-11 pr-4 py-3 rounded-lg border border-cream focus:border-harvest focus:outline-none text-soil placeholder:text-earth/50"
               />
             </div>
@@ -210,22 +210,22 @@ export default function LoginPage() {
           <p className="text-caption text-earth font-semibold mb-2">Demo credentials:</p>
           {userType === 'farmer' ? (
             <div className="space-y-1">
-              <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">petani@tanilink.id</span></p>
+              <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">petani@nexira.id</span></p>
               <p className="text-caption text-soil">Password: <span className="font-mono font-semibold">petani123</span></p>
             </div>
           ) : userType === 'distributor' ? (
             <div className="space-y-1">
-              <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">distributor@tanilink.id</span></p>
+              <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">distributor@nexira.id</span></p>
               <p className="text-caption text-soil">Password: <span className="font-mono font-semibold">distributor123</span></p>
             </div>
           ) : userType === 'b2b' ? (
             <div className="space-y-1">
-              <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">b2b@tanilink.id</span></p>
+              <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">b2b@nexira.id</span></p>
               <p className="text-caption text-soil">Password: <span className="font-mono font-semibold">b2b123</span></p>
             </div>
           ) : (
             <div className="space-y-1">
-              <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">pembeli@tanilink.id</span></p>
+              <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">pembeli@nexira.id</span></p>
               <p className="text-caption text-soil">Password: <span className="font-mono font-semibold">pembeli123</span></p>
             </div>
           )}

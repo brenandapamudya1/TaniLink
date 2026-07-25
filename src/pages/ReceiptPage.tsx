@@ -56,7 +56,7 @@ function drawReceipt(ctx: CanvasRenderingContext2D, order: ReceiptData) {
   ctx.fillStyle = '#F5F0E8'
   ctx.font = 'bold 28px sans-serif'
   ctx.textAlign = 'center'
-  ctx.fillText('TaniLink', width / 2, 38)
+  ctx.fillText('Nexira', width / 2, 38)
 
   ctx.font = '13px sans-serif'
   ctx.fillStyle = '#F5F0E8'
@@ -246,7 +246,7 @@ function drawReceipt(ctx: CanvasRenderingContext2D, order: ReceiptData) {
   ctx.textAlign = 'center'
   ctx.fillStyle = '#6B4E2A'
   ctx.font = '11px sans-serif'
-  ctx.fillText('Terima kasih telah berbelanja di TaniLink!', width / 2, y)
+  ctx.fillText('Terima kasih telah berbelanja di Nexira!', width / 2, y)
   y += lineHeight
   ctx.fillText('dari kebun langsung ke tanganmu', width / 2, y)
 }

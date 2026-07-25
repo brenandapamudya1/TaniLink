@@ -63,7 +63,7 @@ function downloadInvoicePng(invoice: B2BInvoice) {
   ctx.fillText(`Tanggal: ${invoice.date}`, pad, 120)
   ctx.fillText(`Jatuh Tempo: ${invoice.dueDate}`, pad, 145)
   ctx.textAlign = 'right'
-  ctx.fillText(`TaniLink`, w - pad, 120)
+  ctx.fillText(`Nexira`, w - pad, 120)
 
   // --- table header ---
   const tableY = 180
@@ -149,8 +149,8 @@ function downloadInvoicePng(invoice: B2BInvoice) {
   ctx.textAlign = 'center'
   ctx.fillStyle = '#6B4E2A'
   ctx.font = '11px Plus Jakarta Sans, sans-serif'
-  ctx.fillText('Terima kasih telah berbelanja di TaniLink', w / 2, fty)
-  ctx.fillText('www.tanilink.id', w / 2, fty + 18)
+  ctx.fillText('Terima kasih telah berbelanja di Nexira', w / 2, fty)
+  ctx.fillText('www.nexira.id', w / 2, fty + 18)
 
   // --- export ---
   canvas.toBlob((blob) => {

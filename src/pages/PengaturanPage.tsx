@@ -135,7 +135,7 @@ export default function PengaturanPage() {
               <Info size={20} className="text-harvest flex-shrink-0" />
               <div className="flex-1">
                 <p className="text-soil font-semibold text-sm">Versi Aplikasi</p>
-                <p className="text-caption text-earth">TaniLink v0.1.0 — Phase 0</p>
+                <p className="text-caption text-earth">Nexira v0.1.0 — Phase 0</p>
               </div>
             </div>
           </div>

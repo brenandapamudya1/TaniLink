@@ -69,8 +69,8 @@ export function getFallbackResponse(): GeminiResponse {
     links: [],
     quickReplies: [
       { label: 'Rekomendasi', text: 'Rekomendasi produk terlaris' },
-      { label: 'Cara Order', text: 'Bagaimana cara order di TaniLink?' },
-      { label: 'Petani', text: 'Siapa saja petani di TaniLink?' },
+      { label: 'Cara Order', text: 'Bagaimana cara order di Nexira?' },
+      { label: 'Petani', text: 'Siapa saja petani di Nexira?' },
       { label: 'Bantuan', text: 'Saya butuh bantuan' },
     ],
   }

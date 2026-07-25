@@ -3,7 +3,7 @@ import productTomat from '@/assets/products/product-tomat.jpg'
 import productBerasMerah from '@/assets/products/product-beras-merah.jpeg'
 
 const buyer = {
-  id: 'pembeli@tanilink.id',
+  id: 'pembeli@nexira.id',
   name: 'Pembeli',
   avatar: 'icon:user-circle',
   userType: 'buyer' as const,

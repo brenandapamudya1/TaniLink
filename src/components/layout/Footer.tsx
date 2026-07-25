@@ -6,8 +6,9 @@ export function Footer() {
       <div className="md:max-w-[480px] md:mx-auto">
         <div className="flex items-center mb-4">
           <img
-            src="/logo_and_text.png"
-            alt="TaniLink"
+            // src="/logo_and_text.png"
+            src="/nexira_logo_trans.png"
+            alt="Nexira"
             className="h-10 w-auto brightness-0 invert"
           />
         </div>
@@ -19,7 +20,7 @@ export function Footer() {
           <button className="text-caption text-cream/70 hover:text-cream transition-colors">Kebijakan Privasi</button>
         </div>
 
-        <p className="text-caption text-cream/50">&copy; 2025 TaniLink</p>
+        <p className="text-caption text-cream/50">&copy; 2025 Nexira</p>
       </div>
     </footer>
   )

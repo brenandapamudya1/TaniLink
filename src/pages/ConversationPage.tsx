@@ -42,7 +42,7 @@ export default function ConversationPage() {
     )
   }
 
-  const senderId = user?.email || 'pembeli@tanilink.id'
+  const senderId = user?.email || 'pembeli@nexira.id'
 
   const handleSend = (text: string) => {
     const newMessage: Message = {

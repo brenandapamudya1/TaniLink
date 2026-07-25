@@ -5,19 +5,19 @@ import type { AuthContextType, AuthUser, UserType } from '@/types/auth'
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 const DUMMY_FARMERS = [
-  { email: 'petani@tanilink.id', password: 'petani123', name: 'Pak Amin Suryadi', farmerId: 'farmer-001' },
+  { email: 'petani@nexira.id', password: 'petani123', name: 'Pak Amin Suryadi', farmerId: 'farmer-001' },
 ]
 
 const DUMMY_BUYERS = [
-  { email: 'pembeli@tanilink.id', password: 'pembeli123', name: 'Budi Santoso' },
+  { email: 'pembeli@nexira.id', password: 'pembeli123', name: 'Budi Santoso' },
 ]
 
 const DUMMY_DISTRIBUTORS = [
-  { email: 'distributor@tanilink.id', password: 'distributor123', name: 'Agus Prasetyo', distributorId: 'distributor-001' },
+  { email: 'distributor@nexira.id', password: 'distributor123', name: 'Agus Prasetyo', distributorId: 'distributor-001' },
 ]
 
 const DUMMY_B2B = [
-  { email: 'b2b@tanilink.id', password: 'b2b123', name: 'Restaurant ABC', businessName: 'Restaurant ABC', businessType: 'Restoran' },
+  { email: 'b2b@nexira.id', password: 'b2b123', name: 'Restaurant ABC', businessName: 'Restaurant ABC', businessType: 'Restoran' },
 ]
 
 interface AuthProviderProps {

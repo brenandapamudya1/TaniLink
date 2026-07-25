@@ -7,12 +7,12 @@ import type { ChatMessage as ChatMessageType } from '@/types/chat'
 const WELCOME_MESSAGE: ChatMessageType = {
   id: 'welcome',
   sender: 'bot',
-  text: 'Halo! Saya Kak Brenanda, asisten TaniLink. Ada yang bisa saya bantu? Kamu bisa tanya tentang produk, petani, atau cara order!',
+  text: 'Halo! Saya Kak Brenanda, asisten Nexira. Ada yang bisa saya bantu? Kamu bisa tanya tentang produk, petani, atau cara order!',
   timestamp: new Date(),
   quickReplies: [
     { label: 'Rekomendasi', text: 'Rekomendasi produk terlaris dong' },
-    { label: 'Cara Order', text: 'Bagaimana cara order di TaniLink?' },
-    { label: 'Petani', text: 'Siapa saja petani di TaniLink?' },
+    { label: 'Cara Order', text: 'Bagaimana cara order di Nexira?' },
+    { label: 'Petani', text: 'Siapa saja petani di Nexira?' },
     { label: 'Sayur Murah', text: 'Sayur apa yang paling murah?' },
   ],
 }

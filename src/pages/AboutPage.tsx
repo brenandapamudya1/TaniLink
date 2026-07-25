@@ -72,7 +72,7 @@ export default function AboutPage() {
 
       <div className="px-4 py-6">
         <h1 className="font-display text-title text-soil mb-4">
-          Tentang TaniLink
+          Tentang Nexira
         </h1>
         <p className="text-body text-earth leading-relaxed">
           Kami menghubungkan petani lokal langsung ke konsumen tanpa perantara. 
@@ -80,7 +80,7 @@ export default function AboutPage() {
           memberatkan konsumen.
         </p>
         <p className="text-body text-earth leading-relaxed mt-3">
-          TaniLink lahir dari keyakinan sederhana: petani deserves better, 
+          Nexira lahir dari keyakinan sederhana: petani deserves better, 
           dan kamu deserves makanan segar dengan harga wajar.
         </p>
       </div>

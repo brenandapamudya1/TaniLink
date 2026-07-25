@@ -28,10 +28,11 @@ export function Navbar() {
         ${scrolled ? 'shadow-card' : ''}
       `}
     >
-      <Link to="/" className="flex items-center" aria-label="TaniLink beranda">
+      <Link to="/" className="flex items-center" aria-label="Nexira beranda">
         <img
-          src="/logo_and_text.png"
-          alt="TaniLink"
+          // src="/logo_and_text.png"
+          src="/nexira_logo_trans.png"
+          alt="Nexira"
           className="h-12 w-auto"
         />
       </Link>

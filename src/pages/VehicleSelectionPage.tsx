@@ -127,7 +127,7 @@ export default function VehicleSelectionPage() {
               <Building2 size={12} className="text-soil" />
             </div>
             <h2 className="font-semibold text-soil text-sm">Kendaraan Rental</h2>
-            <span className="text-[10px] text-harvest font-semibold">Mitra TaniLink</span>
+            <span className="text-[10px] text-harvest font-semibold">Mitra Nexira</span>
           </div>
           <p className="text-caption text-earth mb-3 ml-7">
             Kerjasama dengan CV/PT mitra terpercaya

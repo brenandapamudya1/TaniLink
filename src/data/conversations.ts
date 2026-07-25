@@ -3,7 +3,7 @@ import type { Conversation } from '@/types/message'
 export const conversations: Conversation[] = [
   {
     id: 'conv-001',
-    participantIds: ['pembeli@tanilink.id', 'petani@tanilink.id'],
+    participantIds: ['pembeli@nexira.id', 'petani@nexira.id'],
     participant: {
       id: 'farmer-001',
       name: 'Pak Amin Suryadi',
@@ -17,7 +17,7 @@ export const conversations: Conversation[] = [
   },
   {
     id: 'conv-002',
-    participantIds: ['pembeli@tanilink.id', 'petani@tanilink.id'],
+    participantIds: ['pembeli@nexira.id', 'petani@nexira.id'],
     participant: {
       id: 'farmer-002',
       name: 'Bu Sari Dewi',
@@ -31,7 +31,7 @@ export const conversations: Conversation[] = [
   },
   {
     id: 'conv-003',
-    participantIds: ['petani@tanilink.id', 'distributor@tanilink.id'],
+    participantIds: ['petani@nexira.id', 'distributor@nexira.id'],
     participant: {
       id: 'distributor-001',
       name: 'Agus Logistics',
@@ -45,7 +45,7 @@ export const conversations: Conversation[] = [
   },
   {
     id: 'conv-004',
-    participantIds: ['pembeli@tanilink.id', 'petani@tanilink.id'],
+    participantIds: ['pembeli@nexira.id', 'petani@nexira.id'],
     participant: {
       id: 'farmer-005',
       name: 'Bu Hasnah Rahman',
@@ -59,7 +59,7 @@ export const conversations: Conversation[] = [
   },
   {
     id: 'conv-005',
-    participantIds: ['pembeli@tanilink.id', 'petani@tanilink.id'],
+    participantIds: ['pembeli@nexira.id', 'petani@nexira.id'],
     participant: {
       id: 'farmer-003',
       name: 'Pak Wayan Putra',
@@ -73,7 +73,7 @@ export const conversations: Conversation[] = [
   },
   {
     id: 'conv-006',
-    participantIds: ['b2b@tanilink.id', 'pembeli@tanilink.id'],
+    participantIds: ['b2b@nexira.id', 'pembeli@nexira.id'],
     participant: {
       id: 'b2b-001',
       name: 'Warung Sehat Group',

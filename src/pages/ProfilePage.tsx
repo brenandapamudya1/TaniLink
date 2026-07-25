@@ -122,7 +122,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="px-4 py-8 text-center">
-        <p className="text-caption text-earth">TaniLink v0.1.0 — Phase 0</p>
+        <p className="text-caption text-earth">Nexira v0.1.0 — Phase 0</p>
       </div>
     </PageWrapper>
   )

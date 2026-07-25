@@ -9,9 +9,9 @@ interface FaqItem {
 
 const faqs: FaqItem[] = [
   {
-    question: 'Apa itu TaniLink?',
+    question: 'Apa itu Nexira?',
     answer:
-      'TaniLink adalah marketplace sayur dan buah yang menghubungkan petani lokal langsung ke konsumen. Kami memotong rantai distribusi sehingga petani mendapat harga yang lebih adil dan konsumen mendapat produk segar dengan harga terjangkau.',
+      'Nexira adalah marketplace sayur dan buah yang menghubungkan petani lokal langsung ke konsumen. Kami memotong rantai distribusi sehingga petani mendapat harga yang lebih adil dan konsumen mendapat produk segar dengan harga terjangkau.',
   },
   {
     question: 'Bagaimana cara memesan?',
@@ -36,7 +36,7 @@ const faqs: FaqItem[] = [
   {
     question: 'Bagaimana cara menghubungi customer service?',
     answer:
-      'Kamu bisa menghubungi kami melalui WhatsApp di 0812-3456-7890 (Senin–Sabtu, 08.00–20.00 WIB) atau email ke halo@tanilink.id. Tim kami siap membantu!',
+      'Kamu bisa menghubungi kami melalui WhatsApp di 0812-3456-7890 (Senin–Sabtu, 08.00–20.00 WIB) atau email ke halo@nexira.id. Tim kami siap membantu!',
   },
 ]
 
