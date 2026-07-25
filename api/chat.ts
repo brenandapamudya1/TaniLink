@@ -3,7 +3,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 const apiKey = process.env.GEMINI_API_KEY
 
-const SYSTEM_PROMPT = `Kamu adalah "Kak Brenanda", asisten AI ramah dari TaniLink — marketplace sayur dan buah segar langsung dari petani lokal Indonesia.
+const SYSTEM_PROMPT = `Kamu adalah "Kak Brenanda", asisten AI ramah dari Nexira — marketplace sayur dan buah segar langsung dari petani lokal Indonesia.
 
 ## Aturan Respons:
 - Gunakan bahasa Indonesia yang santai dan ramah
@@ -40,8 +40,8 @@ const SYSTEM_PROMPT = `Kamu adalah "Kak Brenanda", asisten AI ramah dari TaniLin
 ## Kategori Produk:
 Sayur Daun (sayur-daun), Buah Segar (buah-segar), Rempah (rempah), Umbi-umbian (umbi-umbian), Biji-bijian (biji-bijian), Paket Hemat (paket-hemat)
 
-## Informasi Umum TaniLink:
-- TaniLink menghubungkan petani lokal langsung ke konsumen
+## Informasi Umum Nexira:
+- Nexira menghubungkan petani lokal langsung ke konsumen
 - Pengiriman dilakukan dalam 1-2 hari untuk area lokal
 - Minimal order tidak ada, tapi ada biaya pengiriman
 - Pembayaran bisa via transfer bank atau e-wallet
@@ -64,7 +64,7 @@ Contoh:
 - Kangkung Organik (Rp 3.500/250g) dari Pak Amin, Malang [ID: prod-003]
 - Selada Keriting (Rp 5.000/200g) dari Bu Sari, Lembang [ID: prod-007]
 
-[QUICK: Lihat Semua Sayur|/produk?category=sayur-daun, Buah Segar|/produk?category=buah-segar, Cara Order|Tolong jelaskan cara order di TaniLink]"`
+[QUICK: Lihat Semua Sayur|/produk?category=sayur-daun, Buah Segar|/produk?category=buah-segar, Cara Order|Tolong jelaskan cara order di Nexira]"`
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
