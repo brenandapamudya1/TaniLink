@@ -2,6 +2,7 @@ import { useState, useMemo, createContext, useContext } from 'react'
 import type { ReactNode } from 'react'
 import type { CartItem, CartContextType } from '@/types/cart'
 import type { Product } from '@/types/product'
+import type { B2BDealProduct } from '@/types/b2bDeal'
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
@@ -24,6 +25,26 @@ export function CartProvider({ children }: CartProviderProps) {
       }
       return [...prev, { product, quantity: 1 }]
     })
+  }
+
+  const addDeal = (deal: B2BDealProduct) => {
+    const product: Product = {
+      id: deal.id,
+      name: deal.name,
+      slug: deal.id,
+      category: deal.category,
+      farmerId: deal.partner.id,
+      price: deal.discountedPrice,
+      unit: deal.unit,
+      stock: deal.stock,
+      images: [deal.image],
+      description: deal.description,
+      tags: [],
+      harvestDate: '',
+      rating: deal.rating,
+      reviewCount: 0,
+    }
+    addItem(product)
   }
 
   const removeItem = (productId: string) => {
@@ -55,7 +76,7 @@ export function CartProvider({ children }: CartProviderProps) {
 
   return (
     <CartContext.Provider
-      value={{ items, addItem, removeItem, updateQty, clearCart, totalItems, totalPrice }}
+      value={{ items, addItem, addDeal, removeItem, updateQty, clearCart, totalItems, totalPrice }}
     >
       {children}
     </CartContext.Provider>

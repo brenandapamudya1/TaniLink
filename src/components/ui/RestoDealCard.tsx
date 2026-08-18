@@ -1,5 +1,7 @@
-import { Store } from 'lucide-react'
+import { useState } from 'react'
+import { Store, Plus, Check } from 'lucide-react'
 import type { B2BDealProduct } from '@/types/b2bDeal'
+import { useCart } from '@/context/CartContext'
 import { formatPrice } from '@/utils/formatPrice'
 
 interface RestoDealCardProps {
@@ -7,9 +9,18 @@ interface RestoDealCardProps {
 }
 
 export function RestoDealCard({ deal }: RestoDealCardProps) {
+  const { addDeal } = useCart()
+  const [added, setAdded] = useState(false)
+
   const discountPercent = Math.round(
     ((deal.originalPrice - deal.discountedPrice) / deal.originalPrice) * 100
   )
+
+  const handleAdd = () => {
+    addDeal(deal)
+    setAdded(true)
+    setTimeout(() => setAdded(false), 1500)
+  }
 
   return (
     <div className="bg-fog rounded-lg shadow-card overflow-hidden flex flex-col">
@@ -41,6 +52,27 @@ export function RestoDealCard({ deal }: RestoDealCardProps) {
             <span className="text-[10px] text-earth/60">/ {deal.unit}</span>
           </div>
         </div>
+
+        <button
+          onClick={handleAdd}
+          className={`mt-3 w-full flex items-center justify-center gap-1.5 py-2 rounded-pill text-xs font-semibold transition-colors ${
+            added
+              ? 'bg-leaf text-cream'
+              : 'bg-soil text-cream hover:bg-leaf'
+          }`}
+        >
+          {added ? (
+            <>
+              <Check size={14} />
+              Ditambahkan
+            </>
+          ) : (
+            <>
+              <Plus size={14} />
+              Keranjang
+            </>
+          )}
+        </button>
       </div>
     </div>
   )

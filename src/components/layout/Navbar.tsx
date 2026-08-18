@@ -58,9 +58,6 @@ export function Navbar() {
           </Link>
         ) : (
           <>
-            <Link to="/login" className="text-sm font-semibold text-soil hover:text-harvest transition-colors">
-              Masuk
-            </Link>
             {!isFarmerOrDistributor && (
               <Link to="/keranjang" className="relative" aria-label="Keranjang belanja">
                 <ShoppingCart size={22} className="text-soil" />
@@ -71,6 +68,9 @@ export function Navbar() {
                 )}
               </Link>
             )}
+            <Link to="/login" className="text-sm font-semibold text-soil hover:text-harvest transition-colors">
+              Masuk
+            </Link>
           </>
         )}
       </div>
