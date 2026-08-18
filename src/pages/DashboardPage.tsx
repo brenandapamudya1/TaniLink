@@ -2,6 +2,7 @@ import { GreetingSection } from '@/components/sections/GreetingSection'
 import { CategorySection } from '@/components/sections/CategorySection'
 import { PanenHariIni } from '@/components/sections/PanenHariIni'
 import { RekomendasiSection } from '@/components/sections/RekomendasiSection'
+import { RestoDealsSection } from '@/components/sections/RestoDealsSection'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 
 export default function DashboardPage() {
@@ -12,6 +13,7 @@ export default function DashboardPage() {
         <CategorySection />
         <PanenHariIni />
         <RekomendasiSection />
+        <RestoDealsSection />
       </main>
     </PageWrapper>
   )

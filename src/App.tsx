@@ -27,6 +27,7 @@ import PengaturanPage from '@/pages/PengaturanPage'
 import BantuanPage from '@/pages/BantuanPage'
 import LoginPage from '@/pages/LoginPage'
 import AboutPage from '@/pages/AboutPage'
+import RestoDealsPage from '@/pages/RestoDealsPage'
 import FarmerDashboardPage from '@/pages/FarmerDashboardPage'
 import SmartHomePage from '@/pages/SmartHomePage'
 import UploadProdukPage from '@/pages/UploadProdukPage'
@@ -94,6 +95,7 @@ function App() {
         <Route path="/inbox/:id" element={<ProtectedRoute><ConversationPage /></ProtectedRoute>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/tentang" element={<AboutPage />} />
+        <Route path="/resto-deals" element={<RestoDealsPage />} />
         <Route
           path="/dashboard-petani"
           element={

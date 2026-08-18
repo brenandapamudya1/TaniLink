@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { User, ClipboardList, Heart, MapPin, Bell, Settings, HelpCircle, ChevronRight, Sprout, Truck, DollarSign, Clock, LogOut, ShoppingBag, TrendingUp, FileText, MessageCircle } from 'lucide-react'
+import { User, ClipboardList, Heart, MapPin, Bell, Settings, HelpCircle, ChevronRight, Sprout, Truck, DollarSign, Clock, LogOut, ShoppingBag, TrendingUp, FileText, MessageCircle, UtensilsCrossed } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { useAuth } from '@/context/AuthContext'
 
@@ -53,6 +53,7 @@ export default function ProfilePage() {
         break
       default:
         menuItems.push(
+          { icon: UtensilsCrossed, label: 'Resto Deals', route: '/resto-deals' },
           { icon: ClipboardList, label: 'Pesanan Saya', route: '/pesanan' },
           { icon: Heart, label: 'Wishlist', route: '/wishlist' },
         )

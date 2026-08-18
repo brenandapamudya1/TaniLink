@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom'
-import { Package, Truck, DollarSign, TrendingUp, ArrowRight, Building2, FileText, ClipboardList } from 'lucide-react'
+import { Package, Truck, DollarSign, TrendingUp, ArrowRight, Building2, FileText, ClipboardList, UtensilsCrossed } from 'lucide-react'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { useAuth } from '@/context/AuthContext'
 import { b2bAnalytics } from '@/data/b2bAnalytics'
+import { b2bDeals } from '@/data/b2bDeals'
+import { formatPrice } from '@/utils/formatPrice'
 
 const maxSpending = Math.max(...b2bAnalytics.monthlySpending.map((m) => m.spending))
 
@@ -84,6 +86,42 @@ export default function B2BDashboardPage() {
               {b2bAnalytics.lastMonthChange > 0 ? '↑' : '↓'} {Math.abs(b2bAnalytics.lastMonthChange)}%
             </span>
           </div>
+        </div>
+      </div>
+
+      <div className="px-4 pb-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="font-semibold text-soil text-sm">Produk Saya</h2>
+          <span className="text-[11px] text-harvest font-semibold flex items-center gap-1">
+            <UtensilsCrossed size={12} />
+            Dijual di Resto Deals
+          </span>
+        </div>
+        <div className="space-y-3">
+          {b2bDeals.map((deal) => (
+            <div
+              key={deal.id}
+              className="flex items-center gap-3 bg-fog rounded-lg shadow-card p-3"
+            >
+              <img
+                src={deal.image}
+                alt={deal.name}
+                className="w-14 h-14 rounded-lg object-cover"
+              />
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-soil text-sm truncate">{deal.name}</p>
+                <p className="text-caption text-earth">
+                  <span className="line-through mr-1">{formatPrice(deal.originalPrice)}</span>
+                  <span className="font-semibold text-harvest">{formatPrice(deal.discountedPrice)}</span>
+                  <span className="text-earth/60"> / {deal.unit}</span>
+                </p>
+              </div>
+              <div className="text-right flex-shrink-0">
+                <p className="text-[11px] font-semibold text-leaf">Aktif</p>
+                <p className="text-[10px] text-earth/60">Stok: {deal.stock}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
