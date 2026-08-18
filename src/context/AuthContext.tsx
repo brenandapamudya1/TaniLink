@@ -13,7 +13,7 @@ const DUMMY_BUYERS = [
 ]
 
 const DUMMY_DISTRIBUTORS = [
-  { email: 'distributor@nexira.id', password: 'distributor123', name: 'Agus Prasetyo', distributorId: 'distributor-001' },
+  { email: 'collectionagent@nexira.id', password: 'agent123', name: 'Agus Prasetyo', distributorId: 'distributor-001' },
 ]
 
 const DUMMY_B2B = [

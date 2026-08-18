@@ -163,7 +163,7 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder={userType === 'buyer' ? 'pembeli@nexira.id' : userType === 'farmer' ? 'petani@nexira.id' : userType === 'distributor' ? 'distributor@nexira.id' : 'b2b@nexira.id'}
+                placeholder={userType === 'buyer' ? 'pembeli@nexira.id' : userType === 'farmer' ? 'petani@nexira.id' : userType === 'distributor' ? 'collectionagent@nexira.id' : 'b2b@nexira.id'}
                 className="w-full pl-11 pr-4 py-3 rounded-lg border border-cream focus:border-harvest focus:outline-none text-soil placeholder:text-earth/50"
               />
             </div>
@@ -215,8 +215,8 @@ export default function LoginPage() {
             </div>
           ) : userType === 'distributor' ? (
             <div className="space-y-1">
-              <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">distributor@nexira.id</span></p>
-              <p className="text-caption text-soil">Password: <span className="font-mono font-semibold">distributor123</span></p>
+              <p className="text-caption text-soil">Email: <span className="font-mono font-semibold">collectionagent@nexira.id</span></p>
+              <p className="text-caption text-soil">Password: <span className="font-mono font-semibold">agent123</span></p>
             </div>
           ) : userType === 'b2b' ? (
             <div className="space-y-1">

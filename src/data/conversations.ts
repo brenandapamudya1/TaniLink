@@ -31,7 +31,7 @@ export const conversations: Conversation[] = [
   },
   {
     id: 'conv-003',
-    participantIds: ['petani@nexira.id', 'distributor@nexira.id'],
+    participantIds: ['petani@nexira.id', 'collectionagent@nexira.id'],
     participant: {
       id: 'distributor-001',
       name: 'Agus Logistics',
