@@ -43,7 +43,7 @@ export default function InboxPage() {
             <MessageCircle size={28} className="text-earth/50" />
           </div>
           <p className="text-body text-earth text-center">
-            Masuk untuk mulai ngobrol dengan petani atau distributor
+            Masuk untuk mulai ngobrol dengan petani atau collection agent
           </p>
         </div>
       )}

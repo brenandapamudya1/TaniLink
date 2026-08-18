@@ -44,9 +44,9 @@ export default function DistributorDashboardPage() {
     <PageWrapper>
       <div className="px-4 pt-6 pb-4">
         <h1 className="font-display text-title text-soil mb-2">
-          Halo, {user?.name?.split(' ')[0] || 'Distributor'}
+          Halo, {user?.name?.split(' ')[0] || 'Collection Agent'}
         </h1>
-        <p className="text-body text-earth mb-6">Dashboard Distributor</p>
+        <p className="text-body text-earth mb-6">Dashboard Collection Agent</p>
       </div>
 
       <div className="px-4 grid grid-cols-2 gap-3 mb-6">

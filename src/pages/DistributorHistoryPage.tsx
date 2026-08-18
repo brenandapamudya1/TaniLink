@@ -45,7 +45,7 @@ export default function DistributorHistoryPage() {
         </button>
 
         <h1 className="font-display text-title text-soil mb-1">Riwayat & Performa</h1>
-        <p className="text-body text-earth mb-6">Statistik kinerja distributormu</p>
+        <p className="text-body text-earth mb-6">Statistik kinerja collection agent-mu</p>
 
         <div className="space-y-3 mb-6">
           <MetricCard

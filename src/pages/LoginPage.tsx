@@ -118,7 +118,7 @@ export default function LoginPage() {
                   userType === 'distributor' ? 'text-soil' : 'text-earth'
                 }`}
               >
-                Distributor
+                Collection Agent
               </span>
               <span className="text-caption text-earth text-center">
                 Antar hasil panen ke Hub

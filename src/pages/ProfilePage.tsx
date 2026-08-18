@@ -21,7 +21,7 @@ export default function ProfilePage() {
     if (!isLoggedIn) return 'Masuk untuk pengalaman lengkap'
     switch (user?.userType) {
       case 'farmer': return 'Akun Petani'
-      case 'distributor': return 'Akun Distributor'
+      case 'distributor': return 'Akun Collection Agent'
       case 'b2b': return 'Akun Bisnis'
       default: return 'Akun Pembeli'
     }
@@ -38,7 +38,7 @@ export default function ProfilePage() {
         break
       case 'distributor':
         menuItems.push(
-          { icon: Truck, label: 'Dashboard Distributor', route: '/dashboard-distributor' },
+          { icon: Truck, label: 'Dashboard Collection Agent', route: '/dashboard-distributor' },
           { icon: DollarSign, label: 'Pendapatan', route: '/pendapatan-distributor' },
           { icon: Clock, label: 'Riwayat & Performa', route: '/riwayat-distributor' },
         )

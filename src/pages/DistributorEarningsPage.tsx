@@ -23,7 +23,7 @@ export default function DistributorEarningsPage() {
         </button>
 
         <h1 className="font-display text-title text-soil mb-1">Pendapatan</h1>
-        <p className="text-body text-earth mb-6">Pendapatan Distributor</p>
+        <p className="text-body text-earth mb-6">Pendapatan Collection Agent</p>
 
         <div className="mb-6">
           <EarningsSummary
